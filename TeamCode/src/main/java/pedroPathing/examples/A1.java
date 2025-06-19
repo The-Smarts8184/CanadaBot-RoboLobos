@@ -13,8 +13,8 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import pedroPathing.constants.FConstants;
-import pedroPathing.constants.LConstants;
+import pedroPathing.constants.*;
+
 
 @Autonomous(name = "First Write", group = "Examples")
 public class A1 extends OpMode {

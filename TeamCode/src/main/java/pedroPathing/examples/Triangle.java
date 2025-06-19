@@ -13,8 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import pedroPathing.constants.FConstants;
-import pedroPathing.constants.LConstants;
+import pedroPathing.constants.*;
 
 
 /**

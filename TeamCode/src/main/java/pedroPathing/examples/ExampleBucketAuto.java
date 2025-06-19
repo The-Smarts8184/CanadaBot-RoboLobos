@@ -12,8 +12,7 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import pedroPathing.constants.FConstants;
-import pedroPathing.constants.LConstants;
+import pedroPathing.constants.*;
 
 /**
  * This is an example auto that showcases movement and control of two servos autonomously.

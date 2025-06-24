@@ -72,7 +72,7 @@ public class A1 extends OpMode {
          *    - Control points manipulate the curve between the start and end points.
          *    - A good visualizer for this is [this](https://pedro-path-generator.vercel.app/).
          *    * BezierLines are straight, and require 2 points. There are the start and end points.
-         * Paths have can have heading interpolation: Constant, Linear, or Tangential
+         * Paths can have heading interpolation: Constant, Linear, or Tangential
          *    * Linear heading interpolation:
          *    - Pedro will slowly change the heading of the robot from the startHeading to the endHeading over the course of the entire path.
          *    * Constant Heading Interpolation:
@@ -130,7 +130,8 @@ public class A1 extends OpMode {
                 .setLinearHeadingInterpolation(pickup3Pose.getHeading(), scorePose.getHeading())
                 .build();
 
-        /* This is our park path. We are using a BezierCurve with 3 points, which is a curved line that is curved based off of the control point */
+        /* This is our park path. We are using a BezierCurve with 3 points,
+        which is a curved line that is curved based off of the control point */
         park = new Path(new BezierCurve(new Point(scorePose), /* Control Point */ new Point(parkControlPose), new Point(parkPose)));
         park.setLinearHeadingInterpolation(scorePose.getHeading(), parkPose.getHeading());
     }
@@ -139,7 +140,7 @@ public class A1 extends OpMode {
      * Everytime the switch changes case, it will reset the timer. (This is because of the setPathState() method)
      * The followPath() function sets the follower to run the specific path,
      * but does NOT wait for it to finish before moving on. */
-    public void autonomousPathUpdate() {
+    public void autonomousPathUpdate() { // think about using index to make repetitive actions during auto
         switch (pathState) {
             case 0:
                 follower.followPath(scorePreload);

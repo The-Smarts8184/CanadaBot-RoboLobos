@@ -1,4 +1,4 @@
-package Open;
+package Util;
 
 public class Sample {
     public double x;

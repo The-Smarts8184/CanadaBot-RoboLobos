@@ -1,9 +1,8 @@
-package Subsystems;
+package subsystems;
 
-import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ServoController;
+
 public class Outtake {
     private Servo claw;
     private Servo pitch;

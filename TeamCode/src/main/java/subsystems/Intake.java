@@ -1,11 +1,9 @@
-package Subsystems;
+package subsystems;
 
 import com.arcrobotics.ftclib.command.Subsystem;
-import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ServoController;
 
 public class Intake implements Subsystem {
     private ColorSensor colorSensor;

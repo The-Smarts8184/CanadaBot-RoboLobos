@@ -1,17 +1,18 @@
-package Subsystems;
+package subsystems;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import Commands.States.GearState;
 
-
-public class GearShift {
+public class Climb {
     private final Servo gearShift;
-    private GearState gearState;
 
-    public GearShift(HardwareMap hardwareMap) {
+    public Climb(HardwareMap hardwareMap) {
         gearShift = hardwareMap.get(Servo.class, "gearShift");
+    }
+
+    public enum GearState {
+        GearClimb, GearGround
     }
 
     public void shiftGears(GearState state) {

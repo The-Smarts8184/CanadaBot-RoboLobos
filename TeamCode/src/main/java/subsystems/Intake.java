@@ -5,20 +5,35 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class Intake implements Subsystem {
-    private ColorSensor colorSensor;
-    private Servo claw;
-    private Servo clawYaw;
-    private Servo clawPitch;
-    private Servo turret;
-    public Intake(HardwareMap hardwareMap){
-        claw = hardwareMap.get(Servo.class, "claw");
-        clawYaw = hardwareMap.get(Servo.class,"clawYaw");
-        clawPitch = hardwareMap.get(Servo.class, "clawPitch");
-        turret = hardwareMap.get(Servo.class, "turret");
-        colorSensor = hardwareMap.get(ColorSensor.class,"colorSensor");
-    }
-    public void closeClaw() {
+import util.RobotConstants;
+import util.RobotHardware;
 
+public class Intake implements Subsystem {
+
+    private final RobotHardware robot;
+    private double turretTarget;
+    private ClawState clawState;
+    private int target, prevTarget;
+
+    public static boolean slideReset = false;
+
+    public static int slideSampleCheck;
+
+    public enum IntakeState {
+        INTAKING, TRANSFERRING, STOWED
     }
+
+    public enum ClawState {
+        CLOSED, OPEN
+    }
+
+    public Intake(RobotHardware robot){
+
+        this.robot = RobotHardware.getInstance();
+
+        setExtensionTarget(RobotConstants.Intake.slideStowed);
+        setTurretTarget(RobotConstants.Intake.turretStowed);
+        slideSampleCheck = 0;
+    }
+
 }

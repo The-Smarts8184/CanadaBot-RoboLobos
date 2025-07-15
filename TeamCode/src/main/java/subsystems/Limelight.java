@@ -2,6 +2,7 @@ package subsystems;
 
 import android.graphics.Camera;
 
+import com.arcrobotics.ftclib.command.Robot;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
@@ -57,7 +58,7 @@ public class Limelight {
                 double tempTurretAngle = IntakeInverseKinematics.getIKTurretAngle(CameraCalculations.worldPositionX, CameraCalculations.worldPositionY);
                 double tempSlideExtension = IntakeInverseKinematics.getIKSlideExtension(CameraCalculations.worldPositionX, CameraCalculations.worldPositionY);
 
-                if (!Double.isNaN(tempTurretAngle) && tempSlideExtension < (RobotConstants.Intake.slideMax + Intake.slideSampleCheck) && cameraOutput[i + 3] == targetedSampleColor){
+                if (!Double.isNaN(tempTurretAngle) && tempSlideExtension < (RobotConstants.Intake.slideMax + robot.intake.getSlideSampleCheck()) && cameraOutput[i + 3] == targetedSampleColor){
                     samples.add(new Sample(CameraCalculations.worldPositionX, CameraCalculations.worldPositionY, cameraOutput[i + 2], cameraOutput[i + 3]));
                 }
             }

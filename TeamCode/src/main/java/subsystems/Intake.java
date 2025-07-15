@@ -18,7 +18,7 @@ public class Intake implements Subsystem {
 
     public static boolean slideReset = false;
 
-    public static int slideSampleCheck;
+    private int slideSampleCheck;
 
     public enum IntakeState {
         INTAKING, TRANSFERRING, STOWED
@@ -64,6 +64,14 @@ public class Intake implements Subsystem {
             prevTarget = target;
             target = position;
         }
+    }
+
+    public int getSlideSampleCheck() {
+        return slideSampleCheck;
+    }
+
+    public void setSlideSampleCheck(int slideSampleCheck) {
+        this.slideSampleCheck = slideSampleCheck;
     }
 
     public int getExtensionTarget() {

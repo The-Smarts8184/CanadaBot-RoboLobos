@@ -16,6 +16,8 @@ public class Outtake implements Subsystem {
     private final RobotHardware robot;
 
     private int slideTarget;
+    private double pitchPosition;
+    private double linkagePosition;
     private double LRPitchPosition;
 
     public static boolean slideReset = false;
@@ -95,4 +97,20 @@ public class Outtake implements Subsystem {
         robot.leftSlide.setPower(power);
         robot.rightSlide.setPower(power);
     }
+    public void setPitchPosition(double position) {
+        pitchPosition = position;
+        robot.outtakePitch.setPosition(position);
+    }
+
+    public void setLRPitchPosition(double position) {
+        LRPitchPosition = position;
+        robot.outtakeLPitch.setPosition(position);
+        robot.outtakeRPitch.setPosition(position);
+    }
+
+    public void setLinkagePosition(double position) {
+        linkagePosition = position;
+        robot.outtakeLinkage.setPosition(position);
+    }
+
 }

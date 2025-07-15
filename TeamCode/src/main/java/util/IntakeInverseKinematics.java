@@ -3,7 +3,7 @@ package util;
 public class IntakeInverseKinematics {
     public static double turretAngle = RobotConstants.Intake.turretStowed;
     public static int slideExtension = RobotConstants.Intake.slideStowed;
-    public static double intakeYaw = RobotConstants.Intake.intakeYawStowed;
+    public static double intakeYaw = RobotConstants.Intake.clawRotationStowed;
     public static double slideExtensionInches = 0.0;
     public static int slideOffset = 0;
     public static double turretAngleDeg = 0.0;

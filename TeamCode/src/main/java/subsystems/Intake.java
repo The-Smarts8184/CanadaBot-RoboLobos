@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
+import util.Globals;
 import util.RobotConstants;
 import util.RobotHardware;
 
@@ -27,12 +28,12 @@ public class Intake implements Subsystem {
         CLOSED, OPEN
     }
 
-    public Intake(RobotHardware robot) {
+    public Intake() {
 
         this.robot = RobotHardware.getInstance();
 
         setExtensionTarget(RobotConstants.Intake.slideStowed);
-        setTurretTarget(RobotConstants.Intake.turretStowed);
+        setTurretPosition(RobotConstants.Intake.turretStowed);
         slideSampleCheck = 0;
 
     }
@@ -100,5 +101,19 @@ public class Intake implements Subsystem {
 
     public double getTurretPosition() {
          return robot.turret.getPosition();
+    }
+
+    public void updateSample() {
+        Globals.SAMPLE_LOADED = isSample();
+    }
+
+    public boolean isSample() {
+        int red = robot.colorSensor.red();
+        int green = robot.colorSensor.green();
+        int blue = robot.colorSensor.blue();
+
+        return  red < RobotConstants.Intake.upperRed && red > RobotConstants.Intake.lowerRed ||
+                green < RobotConstants.Intake.upperGreen && green > RobotConstants.Intake.lowerGreen ||
+                blue < RobotConstants.Intake.upperBlue && blue > RobotConstants.Intake.lowerBlue;
     }
 }

@@ -1,8 +1,6 @@
 package util;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Servo;
 
 public class RobotConstants {
     @Config
@@ -12,7 +10,7 @@ public class RobotConstants {
         public static String colorSensor = "colorSensor";
         public static String intakeSlide = "intakeSlide";
         public static String intakeClaw = "intakeClaw";
-        public static String intakeYaw = "intakeYaw";
+        public static String clawRotation = "clawRotation";
         public static String intakePitch = "intakePitch";
         public static String turret = "turret";
 
@@ -33,8 +31,8 @@ public class RobotConstants {
         public static double clawOpen = 0.5; // MAYBE CHANGE
         public static double clawClosed = 0.0; // MAYBE CHANGE
 
-        public static double intakeYawStowed = 0.0; // MAYBE CHANGE
-        public static double intakeYawTransfer = 0.6; // MAYBE CHANGE
+        public static double clawRotationStowed = 0.0; // MAYBE CHANGE
+        public static double clawRotationTransfer = 0.6; // MAYBE CHANGE
 
         // Color Sensor Values
         public static int upperRed = 1100; // MAYBE CHANGE
@@ -84,7 +82,8 @@ public class RobotConstants {
 
         public static int slideStowed = 0;
         public static int slideTransfer = 350; // MAYBE CHANGE
-        public static int slideChamber = 450; // MAYBE CHANGE
+        public static int slideClimb = 450; // MAYBE CHANGE
+        public static int slideMax = 450; // MAYBE CHANGE
 
 
                 // CHANGE MOST NAMES

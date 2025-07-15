@@ -1,13 +1,10 @@
 package util;
 
-import android.icu.text.RelativeDateTimeFormatter;
-
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -31,7 +28,7 @@ public class RobotHardware {
     // Intake
     public ColorSensor colorSensor;
     public Servo intakeClaw;
-    public Servo intakeYaw;
+    public Servo clawRotation;
     public Servo intakePitch;
     public Servo turret;
     public DcMotorEx intakeSlide;
@@ -95,8 +92,8 @@ public class RobotHardware {
         this.intakeClaw = hardwareMap.servo.get(RobotConstants.Intake.intakeClaw);
         this.intakeClaw.setPosition(RobotConstants.Intake.clawOpen);
 
-        this.intakeYaw = hardwareMap.servo.get(RobotConstants.Intake.intakeYaw);
-        this.intakeYaw.setPosition(RobotConstants.Intake.intakeYawStowed);
+        this.clawRotation = hardwareMap.servo.get(RobotConstants.Intake.clawRotation);
+        this.clawRotation.setPosition(RobotConstants.Intake.clawRotationStowed);
 
         this.intakePitch = hardwareMap.servo.get(RobotConstants.Intake.intakePitch);
         this.intakePitch.setPosition(RobotConstants.Intake.intakePitchStowed);

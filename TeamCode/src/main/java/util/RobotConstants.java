@@ -5,7 +5,7 @@ import com.acmerobotics.dashboard.config.Config;
 public class RobotConstants {
     @Config
     public static class Intake {
-        public static double armLength = 9.46; // CHANGE
+        public static double armLength = 6.75; // SIX SEVEN
 
         public static String colorSensor = "colorSensor";
         public static String intakeSlide = "intakeSlide";
@@ -62,8 +62,8 @@ public class RobotConstants {
 
     @Config
     public static class Outtake {
-        public static String leftSlide = "leftSlide";
-        public static String rightSlide = "rightSlide";
+        public static String outtakeRear = "outtakeRear";
+        public static String outtakeFront = "outtakeFront";
         public static String outtakeClaw = "outtakeClaw";
         public static String outtakePitch = "outtakePitch";
         public static String outtakeLinkage = "outtakeLinkage";

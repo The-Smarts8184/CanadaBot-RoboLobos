@@ -4,11 +4,9 @@ package subsystems;
 
 import com.arcrobotics.ftclib.command.Subsystem;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
-import util.Globals;
 import util.RobotConstants;
 import util.RobotHardware;
 
@@ -71,10 +69,10 @@ public class Outtake implements Subsystem {
 
     public void powerSlides() {
         double correction;
-        if (slideTarget > robot.leftSlide.getCurrentPosition()) {
-            correction = robot.outtakeSlideExtendPID.calculate(robot.leftSlide.getCurrentPosition(), slideTarget);
+        if (slideTarget > robot.outtakeRear.getCurrentPosition()) {
+            correction = robot.outtakeSlideExtendPID.calculate(robot.outtakeRear.getCurrentPosition(), slideTarget);
         } else {
-            correction = robot.outtakeSlideRetractPID.calculate(robot.leftSlide.getCurrentPosition(), slideTarget);
+            correction = robot.outtakeSlideRetractPID.calculate(robot.outtakeRear.getCurrentPosition(), slideTarget);
         }
 
         if (slideReset) {
@@ -94,8 +92,8 @@ public class Outtake implements Subsystem {
     }
 
     public void setOuttakeMotorsPower(double power) {
-        robot.leftSlide.setPower(power);
-        robot.rightSlide.setPower(power);
+        robot.outtakeRear.setPower(power);
+        robot.outtakeFront.setPower(power);
     }
     public void setPitchPosition(double position) {
         pitchPosition = position;

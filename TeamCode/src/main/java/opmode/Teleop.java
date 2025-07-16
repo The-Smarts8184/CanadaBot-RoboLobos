@@ -24,7 +24,7 @@ import util.RobotHardware;
 import util.Sample;
 
 // TODO:
-//  1. Motor Directions
+//  1. Intake : PID
 
 @TeleOp
 public class Teleop extends CommandOpMode {
@@ -40,9 +40,32 @@ public class Teleop extends CommandOpMode {
         CommandScheduler.getInstance().reset();
 
         driver = new GamepadEx(gamepad1);
-        operator = new GamepadEx(gamepad2);
 
         robot.init(hardwareMap,driver);
+    }
+
+    @Override
+    public void run() {
+        CommandScheduler.getInstance().run();
+        robot.periodic();
+        driver.readButtons();
+
+
+        telemetry.addData("Intake Slide Motor Power: ",robot.intakeSlide.getPower());
+        telemetry.addData("Intake Slide Motor Current: ",robot.intakeSlide.getCurrent(CurrentUnit.AMPS));
+        telemetry.addData("Intake Slide Motor Target", robot.intake.getExtensionTarget());
+        telemetry.addData("Intake Slide Motor Position", robot.intakeSlide.getCurrentPosition());
+        telemetry.update();
+
+        if (driver.gamepad.y) {
+            robot.intake.setExtensionTarget(-10000);
+        }
+
+        if (driver.gamepad.a) {
+            robot.intake.resetSlides();
+        }
+
+
     }
 
 }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.subsystem;
+package subsystems;
 
 import com.arcrobotics.ftclib.command.Subsystem;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -17,8 +17,8 @@ public class Drivetrain implements Subsystem {
     }
 
     public void periodic() {
-        double y = -robot.driver.getLeftY();
-        double x = -robot.driver.getLeftX() * 1.1;
+        double y = robot.driver.getLeftY();
+        double x = robot.driver.getLeftX() * 1.1;
         rx = robot.driver.getRightX() * 1.1;
 
         heading = robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);

@@ -14,25 +14,27 @@ public class RobotConstants {
         public static String intakePitch = "intakePitch";
         public static String turret = "turret";
 
-        public static double slideP = .005;
-        public static double slideI = 0.0;
-        public static double slideD = 0.0;
+        public static double slideP = .005; //
+        public static double slideI = 0.003;
+        public static double slideD = 0.0; //
         public static double slideF = 0.0;
-        public static int slideMax = 450; // MAYBE CHANGE
+        public static int slideMax = 45000; //
         public static int slideStowed = 0;
 
-        public static double turretStowed = 0.59; // MAYBE CHANGE
-        public static double turretTransfer = 0.115; // MAYBE CHANGE
+        public static double turretTransfer = 0.5; // MAYBE CHANGE
+        public static double turretDrop = 0.75; // MAYBE CHANGE
 
-        public static double intakePitchStowed = 0.0; // MAYBE CHANGE
+        public static double intakePitchStowed = 0.5; // MAYBE CHANGE
         public static double intakePitchActive = 0.9; // MAYBE CHANGE
-        public static double intakePitchTransfer = 0.5; // MAYBE CHANGE
+        public static double intakePitchTransfer = 0.25; // MAYBE CHANGE
 
-        public static double clawOpen = 0.5; // MAYBE CHANGE
-        public static double clawClosed = 0.0; // MAYBE CHANGE
+        public static double clawOpen = 0;
+        public static double clawClosed = 0.9;
+        public static double clawTest = 0.5;
 
-        public static double clawRotationStowed = 0.0; // MAYBE CHANGE
-        public static double clawRotationTransfer = 0.6; // MAYBE CHANGE
+
+        public static double clawRotationStowed = 0.5;
+        public static double clawRotationDrop = 0.7; // MAYBE CHANGE
 
         // Color Sensor Values
         public static int upperRed = 1100; // MAYBE CHANGE

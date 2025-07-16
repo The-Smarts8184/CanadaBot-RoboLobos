@@ -19,7 +19,7 @@ import subsystems.Climb;
 import subsystems.Intake;
 import subsystems.Limelight;
 import subsystems.Outtake;
-import org.firstinspires.ftc.teamcode.subsystem.Drivetrain;
+import subsystems.Drivetrain;
 
 
 @Config
@@ -87,16 +87,19 @@ public class RobotHardware {
 
 
         // ******************* INTAKE ******************* //
-        /*this.colorSensor = hardwareMap.get(ColorSensor.class,RobotConstants.Intake.colorSensor);
+        this.colorSensor = hardwareMap.get(ColorSensor.class,RobotConstants.Intake.colorSensor);
 
         this.intakeClaw = hardwareMap.servo.get(RobotConstants.Intake.intakeClaw);
-        this.intakeClaw.setPosition(RobotConstants.Intake.clawOpen);
+        this.intakeClaw.setPosition(RobotConstants.Intake.clawClosed);
 
         this.clawRotation = hardwareMap.servo.get(RobotConstants.Intake.clawRotation);
         this.clawRotation.setPosition(RobotConstants.Intake.clawRotationStowed);
 
         this.intakePitch = hardwareMap.servo.get(RobotConstants.Intake.intakePitch);
         this.intakePitch.setPosition(RobotConstants.Intake.intakePitchStowed);
+
+        this.turret = hardwareMap.servo.get(RobotConstants.Intake.turret);
+        this.turret.setPosition(RobotConstants.Intake.turretLL);
 
         this.intakeSlide = hardwareMap.get(DcMotorEx.class, RobotConstants.Intake.intakeSlide);
 
@@ -105,7 +108,7 @@ public class RobotHardware {
         intakeSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         intakeSlidePID = new PIDFController(RobotConstants.Intake.slideP,RobotConstants.Intake.slideI,RobotConstants.Intake.slideD,RobotConstants.Intake.slideF);
-        intakeSlide.setPower(0);*/
+        intakeSlide.setPower(0);
 
         // ******************* DRIVETRAIN ******************* //
         leftFront = hardwareMap.get(DcMotorEx.class, RobotConstants.Drivetrain.leftFront);
@@ -148,7 +151,7 @@ public class RobotHardware {
         outtakeFront.setPower(0);
 
         outtakeRear.setDirection(DcMotorSimple.Direction.REVERSE); // MAYBE CHANGE
-        outtakeFront.setDirection(DcMotorSimple.Direction.REVERSE); // MAYBE CHANGE
+        outtakeFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
         outtakeSlideExtendPID = new PIDFController(RobotConstants.Outtake.outtakeExtendingP, RobotConstants.Outtake.outtakeExtendingI, RobotConstants.Outtake.outtakeExtendingD, RobotConstants.Outtake.outtakeExtendingF);
         outtakeSlideRetractPID = new PIDFController(RobotConstants.Outtake.outtakeRetractingP, RobotConstants.Outtake.outtakeRetractingI, RobotConstants.Outtake.outtakeRetractingD, RobotConstants.Outtake.outtakeRetractingF);
@@ -169,7 +172,7 @@ public class RobotHardware {
 
         drivetrain = new Drivetrain();
         intake = new Intake();
-        outtake = new Outtake();
+//        outtake = new Outtake();
 
 //        intakeIK = new IntakeInverseKinematics();
 //        limelightClass = new Limelight();
@@ -177,7 +180,7 @@ public class RobotHardware {
     }
 
     public void periodic() {
-        //intake.periodic();
+        intake.periodic();
         drivetrain.periodic();
         //outtake.periodic();
     }

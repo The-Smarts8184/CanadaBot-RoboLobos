@@ -33,7 +33,7 @@ public class Intake implements Subsystem {
         this.robot = RobotHardware.getInstance();
 
         setExtensionTarget(RobotConstants.Intake.slideStowed);
-        setTurretPosition(RobotConstants.Intake.turretStowed);
+        setTurretPosition(RobotConstants.Intake.turretLL);
         slideSampleCheck = 0;
 
     }
@@ -83,7 +83,7 @@ public class Intake implements Subsystem {
         correction = robot.intakeSlidePID.calculate(robot.intakeSlide.getCurrentPosition(), target);
 
         if (slideReset) {
-            robot.intakeSlide.setPower(-1); // MAYBE CHANGE
+            robot.intakeSlide.setPower(-1);
             if (robot.intakeSlide.getCurrent(CurrentUnit.AMPS) > 5) {
                 robot.intakeSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.intakeSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -91,7 +91,7 @@ public class Intake implements Subsystem {
 
                 slideReset = false;
             }
-        } else if (target == RobotConstants.Intake.slideStowed && (robot.intakeSlide.getCurrentPosition() - target) <= 20) {
+        } else if (target == RobotConstants.Intake.slideStowed && (robot.intakeSlide.getCurrentPosition() - target) <= 2000) {
             robot.intakeSlide.setPower(0);
         } else {
             robot.intakeSlide.setPower(correction);

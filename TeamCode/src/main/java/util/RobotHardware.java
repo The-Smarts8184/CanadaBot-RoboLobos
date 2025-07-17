@@ -156,6 +156,7 @@ public class RobotHardware {
         this.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDrive);
         this.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDrive);
 
+        this.gearShift = hardwareMap.servo.get(RobotConstants.Outtake.gearShift);
         this.gearShift.setPosition(RobotConstants.Outtake.gearShiftDrive);
 
 

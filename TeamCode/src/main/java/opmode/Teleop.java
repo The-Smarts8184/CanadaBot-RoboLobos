@@ -51,6 +51,13 @@ public class Teleop extends CommandOpMode {
         driver = new GamepadEx(gamepad1);
 
         robot.init(hardwareMap,driver);
+
+        telemetry.addData("slide pos: ",robot.outtakeRear.getCurrentPosition());
+        telemetry.addData("slide pos: ",robot.outtakeFront.getCurrentPosition());
+        telemetry.addData("State: ",teleopState);
+        telemetry.addData("Sample State: ",sampleState);
+        telemetry.addData("Spec State: ",specState);
+        telemetry.update();
     }
 
     @Override
@@ -163,14 +170,8 @@ public class Teleop extends CommandOpMode {
                         setSpecState(SpecStates.DRIVE);
                     }
                     robot.intake.setPosition(RobotConstants.Intake.slideSub);
-                    TimerTask pitch = new TimerTask() {
-                        public void run() {
-                            robot.intakePitch.setPosition(RobotConstants.Intake.intakePitchIntake);
-                        }
-
-                    };
                     if (robot.intakePitch.getPosition() != RobotConstants.Intake.intakePitchIntake) {
-                        timer1.schedule(pitch,200);
+                        robot.intakePitch.setPosition(RobotConstants.Intake.intakePitchSubIn);
                     }
                     if (robot.intakePitch.getPosition() == RobotConstants.Intake.intakePitchSubIn) {
                         robot.intake.setClawState(Intake.ClawState.OPEN);
@@ -194,6 +195,7 @@ public class Teleop extends CommandOpMode {
                         timer1.schedule(grabSub, 150);
                     }
 
+
                     if (robot.intake.getClawState() == Intake.ClawState.CLOSED && robot.intake.isSample()) {
                         setSpecState(SpecStates.WALL);
                     }
@@ -202,18 +204,17 @@ public class Teleop extends CommandOpMode {
                     if (driver.gamepad.b) {
                         setSpecState(SpecStates.DRIVE);
                     }
-                    if (driver.gamepad.right_bumper){
-                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff);
-                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff);
-                    }
+
+                    TimerTask swapStateIntake = new TimerTask() {
+                        public void run() {
+                            setSpecState(SpecStates.INTAKE);
+                        }
+                    };
                     if (driver.gamepad.a) {
                         robot.clawRotation.setPosition(RobotConstants.Intake.clawRotationDrive);
-
-//                        need to delay pitch so intake turret can clear
-
                         robot.intakePitch.setPosition(RobotConstants.Intake.intakePitchDrive);
                         robot.turret.setPosition(RobotConstants.Intake.turretDrive);
-                        setSpecState(SpecStates.INTAKE);
+                        timer1.schedule(swapStateIntake,350);
                     }
                     TimerTask swapState = new TimerTask() {
                         public void run() {
@@ -222,6 +223,7 @@ public class Teleop extends CommandOpMode {
                         }
                     };
                     robot.intake.retractSlides();
+                    robot.turret.setPosition(RobotConstants.Intake.turretDropOff);
                     robot.intakePitch.setPosition(RobotConstants.Intake.pitchDropOff);
                     robot.clawRotation.setPosition(RobotConstants.Intake.clawRotation902);
                     if (tempSpec){
@@ -243,6 +245,11 @@ public class Teleop extends CommandOpMode {
                     }
                     if (driver.gamepad.right_bumper) {
                         robot.intake.setClawState(Intake.ClawState.OPEN);
+                    }
+                    if (driver.gamepad.left_bumper){
+                        robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageScore);
+                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff);
+                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff);
                     }
 
                     break;

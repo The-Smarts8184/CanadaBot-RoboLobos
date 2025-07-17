@@ -2,6 +2,7 @@ package subsystems;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import util.RobotConstants;
 import util.RobotHardware;
 
 
@@ -20,10 +21,10 @@ public class Climb {
     public void shiftGears(GearState state) {
         switch(state) {
             case GearDrive:
-                robot.gearShift.setPosition(0);
+                robot.gearShift.setPosition(RobotConstants.Outtake.gearShiftDrive);
                 break;
             case GearClimb:
-                robot.gearShift.setPosition(1);
+                robot.gearShift.setPosition(RobotConstants.Outtake.gearShiftClimb);
                 break;
         }
     }

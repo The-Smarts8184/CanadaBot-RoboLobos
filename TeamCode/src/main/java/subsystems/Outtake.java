@@ -45,7 +45,7 @@ public class Outtake implements Subsystem {
     }
 
     public void retractSlides() {
-        slidePower(-1);
+        setPosition(0);
         if (robot.outtakeRear.getCurrentPosition() < 5){
             stopSlides();
         }

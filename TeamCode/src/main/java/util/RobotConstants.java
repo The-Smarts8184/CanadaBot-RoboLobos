@@ -41,7 +41,7 @@ public class RobotConstants {
 
 
         //SPECIMEN
-        public static double turretDropOff = 0.75;
+        public static double turretDropOff = 0.15;
         public static double pitchDropOff = 0.6;
 
 
@@ -84,7 +84,7 @@ public class RobotConstants {
 
 
         public static int slideDrive = 0;
-        public static int slideSpec = 750; // MAYBE CHANGE
+        public static int slideSpec = 775; // MAYBE CHANGE
         public static int slideSample = 1500; // MAYBE CHANGE
         public static int slideClimb = 1860; // MAYBE CHANGE
         public static int slideMax = 620;
@@ -92,7 +92,7 @@ public class RobotConstants {
 
 
 
-        public static double linkageDrive = 0; // MAYBE CHANGE
+        public static double linkageDrive = 0.1; // MAYBE CHANGE
         public static double linkageScore = 1;// MAYBE CHANGE
 
         public static double pitchDrive = 0; // MAYBE CHANGE
@@ -103,7 +103,10 @@ public class RobotConstants {
 
         // SPEC
         public static double pitchDropOff = 0.7;
-        public static double LRPitchDropOff = 0.1;
+        public static double LRPitchDropOff = 0.03;
+        public static double pitchSpecScore = 0.62;
+        public static double LRPitchSpecScore =0.66;
+
 
 
 

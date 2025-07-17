@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import subsystems.Climb;
 import subsystems.Intake;
 import subsystems.Outtake;
 import util.RobotConstants;
@@ -120,6 +121,9 @@ public class Teleop extends CommandOpMode {
                     if (driver.gamepad.x) {
                         setSpecState(SpecStates.WALL);
                     }
+                    if (driver.gamepad.dpad_up) {
+                        setSpecState(SpecStates.CLIMB);
+                    }
                     if (driver.gamepad.right_bumper) {
                         robot.intake.setClawState(Intake.ClawState.OPEN);
                     }
@@ -228,6 +232,23 @@ public class Teleop extends CommandOpMode {
                     }
 
                     break;
+                case CLIMB:
+                    TimerTask slideWait = new TimerTask() {
+                        public void run() {
+                            robot.outtake.setPosition(RobotConstants.Outtake.slideClimb);
+                        }
+                    };
+                    if (driver.gamepad.b) {
+                        setSampleState(SampleStates.DRIVE);
+                    }
+                    if (driver.gamepad.a) {
+                        robot.climb.shiftGears(Climb.GearState.GearClimb);
+                        timer1.schedule(slideWait,250);
+                    }
+                    if(driver.gamepad.y) {
+                        robot.outtake.retractSlides();
+                    }
+                    break;
 
             }
             break;
@@ -256,6 +277,9 @@ public class Teleop extends CommandOpMode {
                     }
                     if (driver.gamepad.a) {
                         setSampleState(SampleStates.INTAKE);
+                    }
+                    if (driver.gamepad.dpad_up) {
+                        setSampleState(SampleStates.CLIMB);
                     }
                     break;
                 case INTAKE:
@@ -333,6 +357,23 @@ public class Teleop extends CommandOpMode {
                         robot.outtake.setClawState(Outtake.ClawState.OPEN);
                     }
 
+                    break;
+                case CLIMB:
+                    TimerTask slideWait = new TimerTask() {
+                        public void run() {
+                            robot.outtake.setPosition(RobotConstants.Outtake.slideClimb);
+                        }
+                    };
+                    if (driver.gamepad.b) {
+                        setSampleState(SampleStates.DRIVE);
+                    }
+                    if (driver.gamepad.a) {
+                        robot.climb.shiftGears(Climb.GearState.GearClimb);
+                        timer1.schedule(slideWait,250);
+                    }
+                    if(driver.gamepad.y) {
+                        robot.outtake.retractSlides();
+                    }
                     break;
 
             } break;

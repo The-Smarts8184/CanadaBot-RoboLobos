@@ -1,5 +1,5 @@
 package commands.states;
 
 public enum SampleStates {
-    INTAKE, SCORE, DRIVE,
+    INTAKE, SCORE, DRIVE, CLIMB
 }

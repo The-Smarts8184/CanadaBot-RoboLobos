@@ -82,7 +82,15 @@ public class RobotConstants {
         public static String outtakeLPitch = "outtakeLPitch";
         public static String outtakeRPitch = "outtakeRPitch";
 
+        public static double outtakeSlideExtendingP = 0.105;
+        public static double outtakeSlideExtendingI = 0.0;
+        public static double outtakeSlideExtendingD = 0.0;
+        public static double outtakeSlideExtendingF = 0.0;
 
+        public static double outtakeSlideRetractingP = 0.0001;
+        public static double outtakeSlideRetractingI = 0.0;
+        public static double outtakeSlideRetractingD = 0.0;
+        public static double outtakeSlideRetractingF = 0.0;
 
         public static int slideStowed = 0;
         public static int slideSpec = 250; // MAYBE CHANGE

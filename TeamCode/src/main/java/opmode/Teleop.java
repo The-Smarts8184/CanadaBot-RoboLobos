@@ -58,9 +58,13 @@ public class Teleop extends CommandOpMode {
         Timer timer1 = new Timer();
         Timer timer2 = new Timer();
 
+        robot.outtake.powerSlides();
+
 
         telemetry.addData("slide pos: ",robot.outtakeRear.getCurrentPosition());
         telemetry.addData("slide pos: ",robot.outtakeFront.getCurrentPosition());
+        telemetry.addData("slide power: ", robot.outtakeRear.getPower());
+        telemetry.addData("slide power: ", robot.outtakeFront.getPower());
         telemetry.update();
 
 
@@ -73,7 +77,7 @@ public class Teleop extends CommandOpMode {
                 robot.intake.setClawState(Intake.ClawState.CLOSED);
                 robot.clawRotation.setPosition(RobotConstants.Intake.clawRotationDrive);
                 robot.outtake.setClawState(Outtake.ClawState.OPEN);
-                robot.outtake.retractSlides();
+                //robot.outtake.retractSlides();
                 robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageDrive);
                 robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDrive);
                 robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDrive);
@@ -81,10 +85,12 @@ public class Teleop extends CommandOpMode {
 
 
                 if (driver.gamepad.y) {
-                    setSampleState(SampleStates.SCORE);
+                    //setSampleState(SampleStates.SCORE);
+                    robot.outtake.setSlideTarget(500);
                 }
                 if (driver.gamepad.a) {
-                    setSampleState(SampleStates.INTAKE);
+                    //setSampleState(SampleStates.INTAKE);
+                    robot.outtake.setSlideTarget(0);
                 }
                 break;
             case INTAKE:

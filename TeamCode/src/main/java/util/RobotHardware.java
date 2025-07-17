@@ -50,7 +50,7 @@ public class RobotHardware {
     public Servo outtakePitch;
     public Servo outtakeLinkage;
     public Servo outtakeLPitch;
-    public Servo outtakeRPitch;
+    public Servo outtakeRPitch;;
 
     // Hardware
     private HardwareMap hardwareMap;
@@ -133,15 +133,20 @@ public class RobotHardware {
         this.outtakeRear = hardwareMap.get(DcMotorEx.class, RobotConstants.Outtake.outtakeRear);
         this.outtakeFront = hardwareMap.get(DcMotorEx.class, RobotConstants.Outtake.outtakeFront);
 
+        outtakeRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         outtakeRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        outtakeRear.setTargetPosition(0);
-        outtakeRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        outtakeRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        outtakeRear.setPower(0);
 
+        outtakeFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         outtakeFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        outtakeFront.setTargetPosition(0);
-        outtakeFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        outtakeFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        outtakeFront.setPower(0);
 
         outtakeRear.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        this.outtakeSlideExtendPID = new PIDFController(RobotConstants.Outtake.outtakeSlideExtendingP, RobotConstants.Outtake.outtakeSlideExtendingI, RobotConstants.Outtake.outtakeSlideExtendingD, RobotConstants.Outtake.outtakeSlideExtendingF);
+        this.outtakeSlideRetractPID = new PIDFController(RobotConstants.Outtake.outtakeSlideRetractingP, RobotConstants.Outtake.outtakeSlideRetractingI, RobotConstants.Outtake.outtakeSlideRetractingD, RobotConstants.Outtake.outtakeSlideRetractingF);
 
         this.outtakeClaw = hardwareMap.servo.get(RobotConstants.Outtake.outtakeClaw);
         this.outtakeClaw.setPosition(RobotConstants.Outtake.clawOpen);

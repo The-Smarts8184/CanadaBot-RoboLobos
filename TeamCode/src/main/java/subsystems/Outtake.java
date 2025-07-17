@@ -21,11 +21,13 @@ public class Outtake implements Subsystem {
         CLOSED, OPEN
     }
 
+    private int slideTarget;
 
     public Outtake() {
 
         this.robot = RobotHardware.getInstance();
 
+        slideTarget = 0;
     }
 
     public void setPosition(int position) {
@@ -36,6 +38,23 @@ public class Outtake implements Subsystem {
         robot.outtakeFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.outtakeRear.setPower(power);
         robot.outtakeFront.setPower(power);
+    }
+
+    public void powerSlides() {
+        double correction = 0.0;
+
+        if (slideTarget > robot.outtakeRear.getCurrentPosition()) {
+            correction = robot.outtakeSlideExtendPID.calculate(robot.outtakeRear.getCurrentPosition(), slideTarget);
+        } else {
+            correction = robot.outtakeSlideRetractPID.calculate(robot.outtakeRear.getCurrentPosition(), slideTarget);
+        }
+
+        robot.outtakeRear.setPower(correction);
+        robot.outtakeFront.setPower(correction);
+    }
+
+    public void setSlideTarget(int target) {
+        slideTarget = target;
     }
 
 

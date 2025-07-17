@@ -66,6 +66,11 @@ public class Teleop extends CommandOpMode {
             robot.drivetrain.periodic(1);
         }
 
+        if (driver.gamepad.ps) {
+            robot.outtake.retractSlides();
+            robot.imu.resetYaw();
+        }
+
         driver.readButtons();
 
         Timer timer1 = new Timer();

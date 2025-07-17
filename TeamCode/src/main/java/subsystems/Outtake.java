@@ -47,7 +47,7 @@ public class Outtake implements Subsystem {
     }
 
     public void retractSlides() {
-        setPosition(0);
+        slideRetractPower(-1);
         if (robot.outtakeRear.getCurrentPosition() < 5){
             stopSlides();
         }
@@ -56,6 +56,11 @@ public class Outtake implements Subsystem {
     public void stopSlides() {
         robot.outtakeRear.setPower(0);
         robot.outtakeFront.setPower(0);
+    }
+    public void slideRetractPower(double power) {
+        robot.outtakeRear.setPower(power);
+        robot.outtakeFront.setPower(power);
+
     }
 
 

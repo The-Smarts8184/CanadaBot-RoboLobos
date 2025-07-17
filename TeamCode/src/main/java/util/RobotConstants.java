@@ -42,8 +42,7 @@ public class RobotConstants {
 
         //SPECIMEN
         public static double turretDropOff = 0.75;
-        public static double clawRotationDrop = 0.7;
-        public static double pitchDropOff = 0.5;
+        public static double pitchDropOff = 0.6;
 
 
         // Color Sensor Values
@@ -84,9 +83,9 @@ public class RobotConstants {
 
 
 
-        public static int slideStowed = 0;
-        public static int slideSpec = 250; // MAYBE CHANGE
-        public static int slideSample = 500; // MAYBE CHANGE
+        public static int slideDrive = 0;
+        public static int slideSpec = 750; // MAYBE CHANGE
+        public static int slideSample = 1500; // MAYBE CHANGE
         public static int slideClimb = 1860; // MAYBE CHANGE
         public static int slideMax = 620;
         public static double slidePower = 1;
@@ -101,6 +100,11 @@ public class RobotConstants {
         public static double LRPitchDrive = 0.6; // MAYBE CHANGE
         public static double LRPitchScore = 0.25; // MAYBE CHANGE
         public static double LRPitchTransfer = 0.675;
+
+        // SPEC
+        public static double pitchDropOff = 0.7;
+        public static double LRPitchDropOff = 0.1;
+
 
 
 

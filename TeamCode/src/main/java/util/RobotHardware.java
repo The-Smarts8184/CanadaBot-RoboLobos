@@ -33,8 +33,6 @@ public class RobotHardware {
     public DcMotorEx intakeSlide;
     public PIDFController intakeSlidePID;
 
-    // Climb
-    public Servo gearShift;
 
     // Drivetrain
     public DcMotorEx leftFront, leftRear, rightFront, rightRear;
@@ -51,6 +49,7 @@ public class RobotHardware {
     public Servo outtakeLinkage;
     public Servo outtakeLPitch;
     public Servo outtakeRPitch;
+    public Servo gearShift;
 
     // Hardware
     private HardwareMap hardwareMap;
@@ -156,6 +155,8 @@ public class RobotHardware {
         this.outtakeRPitch = hardwareMap.servo.get(RobotConstants.Outtake.outtakeRPitch);
         this.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDrive);
         this.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDrive);
+
+        this.gearShift.setPosition(RobotConstants.Outtake.gearShiftClimb);
 
 
         drivetrain = new Drivetrain();

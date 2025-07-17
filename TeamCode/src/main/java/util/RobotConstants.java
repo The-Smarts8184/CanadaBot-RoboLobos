@@ -80,25 +80,25 @@ public class RobotConstants {
         public static String outtakeLinkage = "outtakeLinkage";
         public static String outtakeLPitch = "outtakeLPitch";
         public static String outtakeRPitch = "outtakeRPitch";
+        public static String gearShift = "gearShift";
 
 
 
-        public static int slideDrive = 0;
-        public static int slideSpec = 775; // MAYBE CHANGE
-        public static int slideSample = 1500; // MAYBE CHANGE
-        public static int slideClimb = 1860; // MAYBE CHANGE
+        public static int slideSpec = 775;
+        public static int slideSample = 1500;
+        public static int slideClimb = 1860;
         public static int slideMax = 620;
         public static double slidePower = 1;
 
 
 
-        public static double linkageDrive = 0.1; // MAYBE CHANGE
-        public static double linkageScore = 1;// MAYBE CHANGE
+        public static double linkageDrive = 0.1;
+        public static double linkageScore = 1;
 
-        public static double pitchDrive = 0; // MAYBE CHANGE
-        public static double pitchScore = 0.65; // MAYBE CHANGE
-        public static double LRPitchDrive = 0.6; // MAYBE CHANGE
-        public static double LRPitchScore = 0.25; // MAYBE CHANGE
+        public static double pitchDrive = 0;
+        public static double pitchScore = 0.65;
+        public static double LRPitchDrive = 0.6;
+        public static double LRPitchScore = 0.25;
         public static double LRPitchTransfer = 0.675;
 
         // SPEC
@@ -107,12 +107,13 @@ public class RobotConstants {
         public static double pitchSpecScore = 0.62;
         public static double LRPitchSpecScore =0.66;
 
+        public static int gearShiftDrive = 0;
+        public static int gearShiftClimb = 1;
 
 
 
-
-        public static double clawClosed = 0.75; // MAYBE CHANGE
-        public static double clawOpen = 0; // MAYBE CHANGE
+        public static double clawClosed = 0.75;
+        public static double clawOpen = 0;
 
     }
 }

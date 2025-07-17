@@ -1,27 +1,29 @@
 package subsystems;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
+
+import util.RobotHardware;
 
 
 public class Climb {
-    private final Servo gearShift;
+
+    private final RobotHardware robot;
 
     public Climb(HardwareMap hardwareMap) {
-        gearShift = hardwareMap.get(Servo.class, "gearShift");
+        robot = RobotHardware.getInstance();
     }
 
     public enum GearState {
-        GearClimb, GearGround
+        GearClimb, GearDrive
     }
 
     public void shiftGears(GearState state) {
         switch(state) {
-            case GearGround:
-                gearShift.setPosition(0);
+            case GearDrive:
+                robot.gearShift.setPosition(0);
                 break;
             case GearClimb:
-                gearShift.setPosition(1);
+                robot.gearShift.setPosition(1);
                 break;
         }
     }

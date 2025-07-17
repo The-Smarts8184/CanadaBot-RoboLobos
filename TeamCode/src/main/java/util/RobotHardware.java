@@ -156,7 +156,7 @@ public class RobotHardware {
         this.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDrive);
         this.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDrive);
 
-        this.gearShift.setPosition(RobotConstants.Outtake.gearShiftClimb);
+        this.gearShift.setPosition(RobotConstants.Outtake.gearShiftDrive);
 
 
         drivetrain = new Drivetrain();

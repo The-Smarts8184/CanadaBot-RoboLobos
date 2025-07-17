@@ -86,6 +86,7 @@ public class RobotConstants {
 
         public static int slideSpec = 775;
         public static int slideSample = 1500;
+        public static int slideIncrement = 10;
         public static int slideClimb = 1860;
         public static int slideMax = 620;
         public static double slidePower = 1;
@@ -106,6 +107,7 @@ public class RobotConstants {
         public static double LRPitchDropOff = 0.03;
         public static double pitchSpecScore = 0.62;
         public static double LRPitchSpecScore =0.66;
+        public static double LRPitchSpecLongDropOff = 0.06;
 
         public static int gearShiftDrive = 0;
         public static int gearShiftClimb = 1;

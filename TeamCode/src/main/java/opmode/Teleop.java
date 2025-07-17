@@ -1,7 +1,5 @@
 package opmode;
 
-import android.widget.GridLayout;
-
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -29,9 +27,8 @@ public class Teleop extends CommandOpMode {
     private SampleStates sampleState = SampleStates.DRIVE;
     private SpecStates specState = SpecStates.DRIVE;
     TeleopStates teleopState = TeleopStates.SPEC;
-    private boolean tempBucket1 = true;
-    private boolean tempBucket2 = true;
-    private boolean tempspec = true;
+
+    private boolean tempSpec = true;
 
 
 
@@ -97,17 +94,18 @@ public class Teleop extends CommandOpMode {
                     TimerTask swapState4Drive = new TimerTask() {
                         public void run() {
                             setSpecState(SpecStates.SCORE);
-                            tempspec = true;
+                            tempSpec = true;
                         }
                     };
                     robot.intake.retractSlides();
                     robot.intakePitch.setPosition(RobotConstants.Intake.intakePitchDrive);
                     robot.intake.setClawState(Intake.ClawState.CLOSED);
                     robot.clawRotation.setPosition(RobotConstants.Intake.clawRotationDrive);
-                    if (tempspec){
+                    if (tempSpec){
                         robot.outtake.setClawState(Outtake.ClawState.OPEN);
-                        tempspec = false;
+                        tempSpec = false;
                     }
+                    
                     robot.outtake.retractSlides();
                     robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageDrive);
                     robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
@@ -198,6 +196,10 @@ public class Teleop extends CommandOpMode {
                     if (driver.gamepad.b) {
                         setSpecState(SpecStates.DRIVE);
                     }
+                    if (driver.gamepad.right_bumper){
+                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff);
+                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff);
+                    }
                     if (driver.gamepad.a) {
                         robot.clawRotation.setPosition(RobotConstants.Intake.clawRotationDrive);
 
@@ -210,23 +212,24 @@ public class Teleop extends CommandOpMode {
                     TimerTask swapState = new TimerTask() {
                         public void run() {
                             setSpecState(SpecStates.SCORE);
-                            tempspec = true;
+                            tempSpec = true;
                         }
                     };
                     robot.intake.retractSlides();
                     robot.intakePitch.setPosition(RobotConstants.Intake.pitchDropOff);
                     robot.clawRotation.setPosition(RobotConstants.Intake.clawRotation902);
-                    if (tempspec){
+                    if (tempSpec){
                         robot.outtake.setClawState(Outtake.ClawState.OPEN);
-                        tempspec = false;
+                        tempSpec = false;
                     }
                     robot.outtake.retractSlides();
-                    robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageDrive);
-                    robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
-                    robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
-                    robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchDropOff);
-                    robot.turret.setPosition(RobotConstants.Intake.turretDropOff);
-
+                    if (tempSpec) {
+                        robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageDrive);
+                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
+                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
+                        robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchDropOff);
+                        robot.turret.setPosition(RobotConstants.Intake.turretDropOff);
+                    }
                     if (driver.gamepad.y) {
                         robot.intake.setClawState(Intake.ClawState.OPEN);
                         robot.outtake.setClawState(Outtake.ClawState.CLOSED);
@@ -355,6 +358,13 @@ public class Teleop extends CommandOpMode {
                         timer1.schedule(Transfer1, 150);
                         timer2.schedule(Transfer2,250);
                         timer1.schedule(score, 500);
+                    }
+
+                    if (driver.gamepad.left_bumper) {
+                        robot.intake.IncrementLClawRotation();
+                    }
+                    if (driver.gamepad.right_bumper) {
+                        robot.intake.IncrementRClawRotation();
                     }
 
 

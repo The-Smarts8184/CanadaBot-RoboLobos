@@ -5,8 +5,6 @@ package subsystems;
 import com.arcrobotics.ftclib.command.Subsystem;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
-
 import util.RobotConstants;
 import util.RobotHardware;
 
@@ -47,9 +45,24 @@ public class Outtake implements Subsystem {
     }
 
     public void retractSlides() {
-        slideRetractPower(-1);
+        slidePower(-1);
         if (robot.outtakeRear.getCurrentPosition() < 5){
             stopSlides();
+        }
+    }
+
+    public void slideLIncrement() {
+        if (robot.outtakeRear.getCurrentPosition() > RobotConstants.Outtake.slideMax) {
+            setPosition(RobotConstants.Outtake.slideMax);;
+        } else {
+            setPosition(robot.outtakeRear.getCurrentPosition() + RobotConstants.Outtake.slideIncrement);
+        }
+    }
+    public void slideRIncrement() {
+        if (robot.outtakeRear.getCurrentPosition() > RobotConstants.Outtake.slideMax) {
+            setPosition(RobotConstants.Outtake.slideMax);;
+        } else {
+            setPosition(robot.outtakeRear.getCurrentPosition() - RobotConstants.Outtake.slideIncrement);
         }
     }
 
@@ -57,7 +70,7 @@ public class Outtake implements Subsystem {
         robot.outtakeRear.setPower(0);
         robot.outtakeFront.setPower(0);
     }
-    public void slideRetractPower(double power) {
+    public void slidePower(double power) {
         robot.outtakeRear.setPower(power);
         robot.outtakeFront.setPower(power);
 

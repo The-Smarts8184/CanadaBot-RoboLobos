@@ -105,7 +105,7 @@ public class Teleop extends CommandOpMode {
                         robot.outtake.setClawState(Outtake.ClawState.OPEN);
                         tempSpec = false;
                     }
-                    
+
                     robot.outtake.retractSlides();
                     robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageDrive);
                     robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
@@ -163,8 +163,14 @@ public class Teleop extends CommandOpMode {
                         setSpecState(SpecStates.DRIVE);
                     }
                     robot.intake.setPosition(RobotConstants.Intake.slideSub);
+                    TimerTask pitch = new TimerTask() {
+                        public void run() {
+                            robot.intakePitch.setPosition(RobotConstants.Intake.intakePitchIntake);
+                        }
+
+                    };
                     if (robot.intakePitch.getPosition() != RobotConstants.Intake.intakePitchIntake) {
-                        robot.intakePitch.setPosition(RobotConstants.Intake.intakePitchSubIn);
+                        timer1.schedule(pitch,200);
                     }
                     if (robot.intakePitch.getPosition() == RobotConstants.Intake.intakePitchSubIn) {
                         robot.intake.setClawState(Intake.ClawState.OPEN);

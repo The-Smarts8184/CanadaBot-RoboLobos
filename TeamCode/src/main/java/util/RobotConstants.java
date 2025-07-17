@@ -14,37 +14,47 @@ public class RobotConstants {
         public static String intakePitch = "intakePitch";
         public static String turret = "turret";
 
-        public static double slideP = .005; //
-        public static double slideI = 0.003;
-        public static double slideD = 0.0; //
-        public static double slideF = 0.0;
-        public static int slideMax = 45000; //
-        public static int slideStowed = 0;
+        public static int slideMax = 750;
+        public static int slideDrive = 0;
+        public static int slidePower = 1;
+        public static int slideSub = 400;
 
-        public static double turretTransfer = 0.5; // MAYBE CHANGE
-        public static double turretDrop = 0.75; // MAYBE CHANGE
+        public static double turretDrive = 0.5;
 
-        public static double intakePitchStowed = 0.5; // MAYBE CHANGE
-        public static double intakePitchActive = 0.9; // MAYBE CHANGE
-        public static double intakePitchTransfer = 0.25; // MAYBE CHANGE
-
+        public static double clawRotationDrive = 0.5;
+        public static double clawRotation45 = 0.375;
+        public static double clawRotation135 = 0.625;
+        public static double clawRotation901 = 0.28;
+        public static double clawRotation902 = 0.72;
         public static double clawOpen = 0;
         public static double clawClosed = 0.9;
-        public static double clawTest = 0.5;
+        public static double clawLoose = 0.8;
 
 
-        public static double clawRotationStowed = 0.5;
-        public static double clawRotationDrop = 0.7; // MAYBE CHANGE
+        //SAMPLE
+
+        public static double intakePitchSubIn = 0.82;
+        public static double intakePitchIntake = 0.93;
+        public static double intakePitchDrive = 0.22;
+
+
+
+
+        //SPECIMEN
+        public static double turretDropOff = 0.75;
+        public static double clawRotationDrop = 0.7;
+        public static double pitchDropOff = 0.5;
+
 
         // Color Sensor Values
-        public static int upperRed = 1100; // MAYBE CHANGE
-        public static int lowerRed = 600; // MAYBE CHANGE
+        public static int upperRed = 10000; // MAYBE CHANGE
+        public static int lowerRed = 3000; // MAYBE CHANGE
 
-        public static int upperGreen = 0;
-        public static int lowerGreen = 0;
+        public static int upperGreen = 10000;
+        public static int lowerGreen = 3000;
 
-        public static int upperBlue = 0;
-        public static int lowerBlue = 0;
+        public static int upperBlue = 10000;
+        public static int lowerBlue = 3000;
 
     }
 
@@ -72,34 +82,30 @@ public class RobotConstants {
         public static String outtakeLPitch = "outtakeLPitch";
         public static String outtakeRPitch = "outtakeRPitch";
 
-        public static double outtakeExtendingP = 0.006;
-        public static double outtakeExtendingI = 0.0;
-        public static double outtakeExtendingD = 0.0;
-        public static double outtakeExtendingF = 0.0;
 
-        public static double outtakeRetractingP = 0.0044;
-        public static double outtakeRetractingI = 0.0;
-        public static double outtakeRetractingD = 0.0;
-        public static double outtakeRetractingF = 0.0;
 
         public static int slideStowed = 0;
-        public static int slideTransfer = 350; // MAYBE CHANGE
-        public static int slideClimb = 450; // MAYBE CHANGE
-        public static int slideMax = 450; // MAYBE CHANGE
-
-
-                // CHANGE MOST NAMES
-        public static double linkageStowed = 0.50; // MAYBE CHANGE
-        public static double linkageTransfer = 1; // MAYBE CHANGE
-        public static double pitchStowed = -0.5; // MAYBE CHANGE
-        public static double pitchTransfer = -0.5; // MAYBE CHANGE
-        public static double LRPitchStowed = -1; // MAYBE CHANGE
-        public static double LRPitchTransfer = 0.53; // MAYBE CHANGE
+        public static int slideSpec = 250; // MAYBE CHANGE
+        public static int slideSample = 500; // MAYBE CHANGE
+        public static int slideClimb = 1860; // MAYBE CHANGE
+        public static int slideMax = 620;
+        public static double slidePower = 1;
 
 
 
-        public static double clawClosed = 0.48; // MAYBE CHANGE
-        public static double clawOpen = 0.25; // MAYBE CHANGE
+        public static double linkageDrive = 0; // MAYBE CHANGE
+        public static double linkageScore = 1;// MAYBE CHANGE
+
+        public static double pitchDrive = 0; // MAYBE CHANGE
+        public static double pitchScore = 0.65; // MAYBE CHANGE
+        public static double LRPitchDrive = 0.6; // MAYBE CHANGE
+        public static double LRPitchScore = 0.25; // MAYBE CHANGE
+        public static double LRPitchTransfer = 0.675;
+
+
+
+        public static double clawClosed = 0.75; // MAYBE CHANGE
+        public static double clawOpen = 0; // MAYBE CHANGE
 
     }
 }

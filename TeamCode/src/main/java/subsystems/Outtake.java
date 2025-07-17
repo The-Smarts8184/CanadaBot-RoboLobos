@@ -13,12 +13,7 @@ import util.RobotHardware;
 public class Outtake implements Subsystem {
     private final RobotHardware robot;
 
-    private int slideTarget;
-    private double pitchPosition;
-    private double linkagePosition;
-    private double LRPitchPosition;
 
-    public static boolean slideReset = false;
 
     private ClawState clawState;
 
@@ -26,30 +21,44 @@ public class Outtake implements Subsystem {
         CLOSED, OPEN
     }
 
-    private OuttakeState outtakeState;
 
-    public enum OuttakeState {
-        SPEC_INIT, SPEC_FINAL, STOWED, TRANSFERRING
-    }
     public Outtake() {
+
         this.robot = RobotHardware.getInstance();
 
-        outtakeState = OuttakeState.STOWED;
-
-        slideTarget = RobotConstants.Outtake.slideStowed;
     }
 
-    public void periodic() {
-        powerSlides();
+    public void setPosition(int position) {
+        double power = RobotConstants.Outtake.slidePower;
+        robot.outtakeRear.setTargetPosition(position);
+        robot.outtakeFront.setTargetPosition(position);
+        robot.outtakeRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.outtakeFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.outtakeRear.setPower(power);
+        robot.outtakeFront.setPower(power);
     }
 
-    public void setOuttakeState(OuttakeState outtakeState) {
-        this.outtakeState = outtakeState;
+
+    public void resetEncoder() {
+        robot.outtakeRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.outtakeFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.outtakeRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.outtakeFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public OuttakeState getOuttakeState() {
-        return outtakeState;
+    public void retractSlides() {
+        setPosition(0);
+        if (robot.outtakeRear.getCurrentPosition() < 5){
+            stopSlides();
+        }
     }
+
+    public void stopSlides() {
+        robot.outtakeRear.setPower(0);
+        robot.outtakeFront.setPower(0);
+    }
+
+
 
     public void setClawState(ClawState state) {
         clawState = state;
@@ -63,52 +72,12 @@ public class Outtake implements Subsystem {
         }
     }
 
-    public void setSlideTarget(int slideTarget) {
-        this.slideTarget = slideTarget;
+    public ClawState getClawState() {
+        return clawState;
     }
 
-    public void powerSlides() {
-        double correction;
-        if (slideTarget > robot.outtakeRear.getCurrentPosition()) {
-            correction = robot.outtakeSlideExtendPID.calculate(robot.outtakeRear.getCurrentPosition(), slideTarget);
-        } else {
-            correction = robot.outtakeSlideRetractPID.calculate(robot.outtakeRear.getCurrentPosition(), slideTarget);
-        }
 
-        if (slideReset) {
-            robot.intakeSlide.setPower(-1); // MAYBE CHANGE
-            if (robot.intakeSlide.getCurrent(CurrentUnit.AMPS) > 5) {
-                robot.intakeSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.intakeSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                robot.intakeSlide.setPower(0);
 
-                slideReset = false;
-            }
-        } else if (slideTarget == RobotConstants.Intake.slideStowed && (robot.intakeSlide.getCurrentPosition() - slideTarget) <= 20) {
-            robot.intakeSlide.setPower(0);
-        } else {
-            robot.intakeSlide.setPower(correction);
-        }
-    }
 
-    public void setOuttakeMotorsPower(double power) {
-        robot.outtakeRear.setPower(power);
-        robot.outtakeFront.setPower(power);
-    }
-    public void setPitchPosition(double position) {
-        pitchPosition = position;
-        robot.outtakePitch.setPosition(position);
-    }
-
-    public void setLRPitchPosition(double position) {
-        LRPitchPosition = position;
-        robot.outtakeLPitch.setPosition(position);
-        robot.outtakeRPitch.setPosition(position);
-    }
-
-    public void setLinkagePosition(double position) {
-        linkagePosition = position;
-        robot.outtakeLinkage.setPosition(position);
-    }
 
 }

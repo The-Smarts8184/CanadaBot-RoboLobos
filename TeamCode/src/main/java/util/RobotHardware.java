@@ -17,7 +17,6 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 import subsystems.Climb;
 import subsystems.Intake;
-import subsystems.Limelight;
 import subsystems.Outtake;
 import subsystems.Drivetrain;
 
@@ -68,9 +67,7 @@ public class RobotHardware {
     public Globals globals;
 
     // Camera
-    public IntakeInverseKinematics intakeIK;
     public CameraCalculations cameraCalcs;
-    public Limelight limelightClass;
 
     public static RobotHardware getInstance() {
         if (instance == null) {
@@ -93,22 +90,18 @@ public class RobotHardware {
         this.intakeClaw.setPosition(RobotConstants.Intake.clawClosed);
 
         this.clawRotation = hardwareMap.servo.get(RobotConstants.Intake.clawRotation);
-        this.clawRotation.setPosition(RobotConstants.Intake.clawRotationStowed);
+        this.clawRotation.setPosition(RobotConstants.Intake.clawRotationDrive);
 
         this.intakePitch = hardwareMap.servo.get(RobotConstants.Intake.intakePitch);
-        this.intakePitch.setPosition(RobotConstants.Intake.intakePitchStowed);
+        this.intakePitch.setPosition(RobotConstants.Intake.intakePitchDrive);
 
         this.turret = hardwareMap.servo.get(RobotConstants.Intake.turret);
-        this.turret.setPosition(RobotConstants.Intake.turretLL);
+        this.turret.setPosition(RobotConstants.Intake.turretDrive);
 
         this.intakeSlide = hardwareMap.get(DcMotorEx.class, RobotConstants.Intake.intakeSlide);
-
-        intakeSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intakeSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        intakeSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        intakeSlidePID = new PIDFController(RobotConstants.Intake.slideP,RobotConstants.Intake.slideI,RobotConstants.Intake.slideD,RobotConstants.Intake.slideF);
-        intakeSlide.setPower(0);
+        intakeSlide.setTargetPosition(0);
+        intakeSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // ******************* DRIVETRAIN ******************* //
         leftFront = hardwareMap.get(DcMotorEx.class, RobotConstants.Drivetrain.leftFront);
@@ -132,7 +125,7 @@ public class RobotHardware {
         // ******************* LIMELIGHT ******************* //
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelight.setPollRateHz(100);
-        limelight.pipelineSwitch(0); // MAYBE CHANGE
+        limelight.pipelineSwitch(0); // MAYBE CHANGE*/
 
 
 
@@ -140,48 +133,36 @@ public class RobotHardware {
         this.outtakeRear = hardwareMap.get(DcMotorEx.class, RobotConstants.Outtake.outtakeRear);
         this.outtakeFront = hardwareMap.get(DcMotorEx.class, RobotConstants.Outtake.outtakeFront);
 
-        outtakeRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         outtakeRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        outtakeRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        outtakeRear.setPower(0);
+        outtakeRear.setTargetPosition(0);
+        outtakeRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        outtakeFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         outtakeFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        outtakeFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        outtakeFront.setPower(0);
+        outtakeFront.setTargetPosition(0);
+        outtakeFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        outtakeRear.setDirection(DcMotorSimple.Direction.REVERSE); // MAYBE CHANGE
-        outtakeFront.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        outtakeSlideExtendPID = new PIDFController(RobotConstants.Outtake.outtakeExtendingP, RobotConstants.Outtake.outtakeExtendingI, RobotConstants.Outtake.outtakeExtendingD, RobotConstants.Outtake.outtakeExtendingF);
-        outtakeSlideRetractPID = new PIDFController(RobotConstants.Outtake.outtakeRetractingP, RobotConstants.Outtake.outtakeRetractingI, RobotConstants.Outtake.outtakeRetractingD, RobotConstants.Outtake.outtakeRetractingF);
+        outtakeRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
         this.outtakeClaw = hardwareMap.servo.get(RobotConstants.Outtake.outtakeClaw);
-        this.outtakeClaw.setPosition(RobotConstants.Outtake.clawClosed);
+        this.outtakeClaw.setPosition(RobotConstants.Outtake.clawOpen);
 
         this.outtakeLinkage = hardwareMap.servo.get(RobotConstants.Outtake.outtakeLinkage);
-        this.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageStowed);
+        this.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageDrive);
 
         this.outtakePitch = hardwareMap.servo.get(RobotConstants.Outtake.outtakePitch);
-        this.outtakePitch.setPosition(RobotConstants.Outtake.pitchStowed);
+        this.outtakePitch.setPosition(RobotConstants.Outtake.pitchDrive);
 
         this.outtakeLPitch = hardwareMap.servo.get(RobotConstants.Outtake.outtakeLPitch);
         this.outtakeRPitch = hardwareMap.servo.get(RobotConstants.Outtake.outtakeRPitch);
-        this.outtakePitch.setPosition(RobotConstants.Outtake.LRPitchStowed);*/
+        this.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDrive);
+        this.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDrive);
 
 
         drivetrain = new Drivetrain();
         intake = new Intake();
-//        outtake = new Outtake();
+        outtake = new Outtake();
 
-//        intakeIK = new IntakeInverseKinematics();
 //        limelightClass = new Limelight();
 //        cameraCalcs = new CameraCalculations();
-    }
-
-    public void periodic() {
-        intake.periodic();
-        drivetrain.periodic();
-        //outtake.periodic();
     }
 }

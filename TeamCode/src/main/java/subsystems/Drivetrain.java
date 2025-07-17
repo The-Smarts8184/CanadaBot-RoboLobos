@@ -16,7 +16,7 @@ public class Drivetrain implements Subsystem {
         this.robot = RobotHardware.getInstance();
     }
 
-    public void periodic() {
+    public void periodic(double slowmode) {
         double y = robot.driver.getLeftY();
         double x = robot.driver.getLeftX() * 1.1;
         rx = robot.driver.getRightX() * 1.1;
@@ -30,9 +30,9 @@ public class Drivetrain implements Subsystem {
         rightFrontPower = (rotY - rotX - rx);
         rightRearPower = (rotY + rotX - rx);
 
-        robot.leftFront.setPower(leftFrontPower);
-        robot.leftRear.setPower(leftRearPower);
-        robot.rightFront.setPower(rightFrontPower);
-        robot.rightRear.setPower(rightRearPower);
+        robot.leftFront.setPower(leftFrontPower * slowmode);
+        robot.leftRear.setPower(leftRearPower * slowmode);
+        robot.rightFront.setPower(rightFrontPower * slowmode);
+        robot.rightRear.setPower(rightRearPower * slowmode);
     }
 }

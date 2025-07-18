@@ -87,9 +87,12 @@ public class RobotConstants {
         public static int slideSpec = 400;
         public static int slideSample = 800;
         public static int slideIncrement = 10;
-        public static int slideClimb = 3000;
+        public static int slideClimb1 = 1200;
+        public static int slideClimb2 = 500;
+        public static int slideClimb3 = 2400;
         public static int slideMax = 1000;
-        public static double slidePower = 1;
+        public static double slidePowerUp = 1;
+        public static double slidePowerDown = -1;
 
 
 
@@ -101,6 +104,8 @@ public class RobotConstants {
         public static double LRPitchDrive = 0.6;
         public static double LRPitchScore = 0.25;
         public static double LRPitchTransfer = 0.675;
+        public static double LRPitchClimb1 = 0.4;
+        public static double LRPitchClimb2 = 0.55;
 
         // SPEC
         public static double pitchDropOff = 0.7;
@@ -117,5 +122,11 @@ public class RobotConstants {
         public static double clawClosed = 0.75;
         public static double clawOpen = 0;
 
+    }
+
+    @Config
+    public static class Auto {
+        public static double initX = 7.375;
+        public static double initY = 111.75;
     }
 }

@@ -1,4 +1,4 @@
-package pedroPathing.examples;
+package pedroPathing.paths;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
@@ -10,16 +10,21 @@ import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import pedroPathing.constants.*;
 
+import util.RobotConstants;
 
-public class A1 extends OpMode {
+
+@Autonomous(name = "First Write", group = "Examples")
+public class Bucket extends OpMode {
 
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
+    private double initX = RobotConstants.Auto.initX;
+    private double initY = RobotConstants.Auto.initY;
 
     /** This is the variable where we store the state of our auto.
      * It is used by the pathUpdate method. */
@@ -36,27 +41,27 @@ public class A1 extends OpMode {
 
 
     /** list of Poses.
-        Start Pose of our robot */
-    private final Pose startPose = new Pose(9,111,Math.toRadians(270));
+     Start Pose of our robot */
+    private final Pose startPose = new Pose(7.375,111.75,Math.toRadians(0));
 
-        /// Scoring Pose of our robot. It is facing the submersible at a -45 degree (315 degree) angle.
-    private final Pose scorePose = new Pose(14, 129, Math.toRadians(315));
+    /// Scoring Pose of our robot. It is facing the submersible at a -45 degree (315 degree) angle.
+    private final Pose scorePose = new Pose(4.8 + initX, 11.25 + initY, Math.toRadians(315));
 
-        /// Lowest (First) Sample from the Spike Mark
-    private final Pose pickup1Pose = new Pose(37, 121, Math.toRadians(0));
+    /// Lowest (First) Sample from the Spike Mark
+    private final Pose pickup1Pose = new Pose(25.25 + initX, 7.5 + initY, Math.toRadians(0));
 
-        /// Middle (Second) Sample from the Spike Mark
-    private final Pose pickup2Pose = new Pose(43, 130, Math.toRadians(0));
+    /// Middle (Second) Sample from the Spike Mark
+    private final Pose pickup2Pose = new Pose(25.5 + initX, 17.75 + initY, Math.toRadians(0));
 
-        /// Highest (Third) Sample from the Spike Mark
-    private final Pose pickup3Pose = new Pose(49, 135, Math.toRadians(0));
+    /// Highest (Third) Sample from the Spike Mark
+    private final Pose pickup3Pose = new Pose(26.25 + initX, 24.17 + initY, Math.toRadians(45));
 
-        /// Park Pose for our robot, after we do all of the scoring.
-    private final Pose parkPose = new Pose(60, 98, Math.toRadians(90));
+    /// Park Pose for our robot, after we do all of the scoring.
+    private final Pose parkPose = new Pose(46 + initX, -25 + initY, Math.toRadians(270));
 
-        /** Park Control Pose for our robot, this is used to manipulate the bezier curve that we will create for the parking.
-         * The Robot will not go to this pose, it is used a control point for our bezier curve. */
-    private final Pose parkControlPose = new Pose(60, 98, Math.toRadians(90));
+    /** Park Control Pose for our robot, this is used to manipulate the bezier curve that we will create for the parking.
+     * The Robot will not go to this pose, it is used a control point for our bezier curve. */
+    private final Pose parkControlPose = new Pose(62 + initX, 24 + initY);
 
     /** These are our Paths and PathChains that we will define in buildPaths() */
     private Path scorePreload, park;
@@ -91,8 +96,8 @@ public class A1 extends OpMode {
         /* This is our grabPickup1 PathChain.
         We are using a single path with a BezierLine, which is a straight line. */
         grabPickup1 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickup1Pose), new Point(scorePose)))
-                .setLinearHeadingInterpolation(pickup1Pose.getHeading(), scorePose.getHeading())
+                .addPath(new BezierLine(new Point(scorePose), new Point(pickup1Pose)))
+                .setLinearHeadingInterpolation(scorePose.getHeading(), pickup1Pose.getHeading())
                 .build();
 
         /* This is our scorePickup1 PathChain.
@@ -189,7 +194,7 @@ public class A1 extends OpMode {
                 }
                 break;
             case 5:
-               if(!follower.isBusy()) {
+                if(!follower.isBusy()) {
                     /* Score Sample */
 
                     follower.followPath(grabPickup3,true);

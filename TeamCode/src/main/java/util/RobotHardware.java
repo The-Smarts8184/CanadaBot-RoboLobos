@@ -149,12 +149,12 @@ public class RobotHardware {
         this.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageDrive);
 
         this.outtakePitch = hardwareMap.servo.get(RobotConstants.Outtake.outtakePitch);
-        this.outtakePitch.setPosition(RobotConstants.Outtake.pitchDrive);
+        this.outtakePitch.setPosition(RobotConstants.Outtake.pitchDropOff);
 
         this.outtakeLPitch = hardwareMap.servo.get(RobotConstants.Outtake.outtakeLPitch);
         this.outtakeRPitch = hardwareMap.servo.get(RobotConstants.Outtake.outtakeRPitch);
-        this.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDrive);
-        this.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDrive);
+        this.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
+        this.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
 
         this.gearShift = hardwareMap.servo.get(RobotConstants.Outtake.gearShift);
         this.gearShift.setPosition(RobotConstants.Outtake.gearShiftDrive);
@@ -163,6 +163,7 @@ public class RobotHardware {
         drivetrain = new Drivetrain();
         intake = new Intake();
         outtake = new Outtake();
+        climb = new Climb();
 
 //        limelightClass = new Limelight();
 //        cameraCalcs = new CameraCalculations();

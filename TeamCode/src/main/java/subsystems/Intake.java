@@ -71,7 +71,7 @@ public class Intake implements Subsystem {
 
     public void retractSlides() {
         setPosition(0);
-        if (robot.intakeSlide.getCurrentPosition() < 20){
+        if (robot.intakeSlide.getCurrentPosition() < 10){
             stopSlides();
         }
     }

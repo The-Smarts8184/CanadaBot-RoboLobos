@@ -27,7 +27,7 @@ public class Outtake implements Subsystem {
     }
 
     public void setPosition(int position) {
-        double power = RobotConstants.Outtake.slidePower;
+        double power = RobotConstants.Outtake.slidePowerUp;
         robot.outtakeRear.setTargetPosition(position);
         robot.outtakeFront.setTargetPosition(position);
         robot.outtakeRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -70,7 +70,7 @@ public class Outtake implements Subsystem {
         robot.outtakeRear.setPower(0);
         robot.outtakeFront.setPower(0);
     }
-    public void slidePower(double power) {
+    public void setSlidePower(double power) {
         robot.outtakeRear.setPower(power);
         robot.outtakeFront.setPower(power);
 

@@ -214,7 +214,7 @@ public class Teleop extends CommandOpMode {
                         robot.clawRotation.setPosition(RobotConstants.Intake.clawRotationDrive);
                         robot.intakePitch.setPosition(RobotConstants.Intake.intakePitchDrive);
                         robot.turret.setPosition(RobotConstants.Intake.turretDrive);
-                        timer1.schedule(swapStateIntake,350);
+                        timer1.schedule(swapStateIntake,600);
                     }
                     TimerTask swapState = new TimerTask() {
                         public void run() {
@@ -254,20 +254,35 @@ public class Teleop extends CommandOpMode {
 
                     break;
                 case CLIMB:
+                    robot.climb.shiftGears(Climb.GearState.GearClimb);
+
+
                     TimerTask slideWait = new TimerTask() {
                         public void run() {
-                            robot.outtake.setPosition(RobotConstants.Outtake.slideClimb);
+                            robot.outtake.setPosition(-1000);
                         }
                     };
                     if (driver.gamepad.b) {
                         setSampleState(SampleStates.DRIVE);
                     }
-                    if (driver.gamepad.a) {
-                        robot.climb.shiftGears(Climb.GearState.GearClimb);
-                        timer1.schedule(slideWait,250);
+                    if (driver.gamepad.left_stick_button) {
+                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
+                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
+                        robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageScore);
+                        robot.outtake.setPosition(RobotConstants.Outtake.slideClimb1);
                     }
-                    if(driver.gamepad.y) {
-                        robot.outtake.retractSlides();
+                    if (driver.gamepad.right_stick_button) {
+                        robot.outtake.setPosition(RobotConstants.Outtake.slideClimb2);
+                    }
+                    if (driver.gamepad.left_bumper) {
+                        robot.outtake.setPosition(RobotConstants.Outtake.slideClimb3);
+
+                    }
+                    if(driver.gamepad.right_bumper) {
+                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchClimb2);
+                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchClimb2);
+                        robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageDrive);
+                        timer1.schedule(slideWait,500);
                     }
                     break;
 
@@ -342,6 +357,8 @@ public class Teleop extends CommandOpMode {
                         setSampleState(SampleStates.DRIVE);
                     }
 
+                    robot.intake.retractSlides();
+
                     TimerTask Transfer1 = new TimerTask() {
                         public void run() {
                             robot.outtake.setClawState(Outtake.ClawState.CLOSED);
@@ -389,7 +406,7 @@ public class Teleop extends CommandOpMode {
                 case CLIMB:
                     TimerTask slideWait = new TimerTask() {
                         public void run() {
-                            robot.outtake.setPosition(RobotConstants.Outtake.slideClimb);
+//                            robot.outtake.setPosition(RobotConstants.Outtake);
                         }
                     };
                     if (driver.gamepad.b) {

@@ -10,7 +10,7 @@ public class Climb {
 
     private final RobotHardware robot;
 
-    public Climb(HardwareMap hardwareMap) {
+    public Climb() {
         robot = RobotHardware.getInstance();
     }
 

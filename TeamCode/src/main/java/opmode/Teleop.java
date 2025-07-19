@@ -19,7 +19,7 @@ import commands.states.*;
 //  1. Intake : setPositions
 //  2. Intake : States
 
-@TeleOp
+@TeleOp (name = "TeleOp")
 public class Teleop extends CommandOpMode {
 
     private final RobotHardware robot = RobotHardware.getInstance();

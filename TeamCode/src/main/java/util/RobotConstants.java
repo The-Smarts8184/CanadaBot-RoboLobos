@@ -22,6 +22,7 @@ public class RobotConstants {
         public static double turretDrive = 0.5;
 
         public static double clawRotationDrive = 0.5;
+        public static double clawRotationAutoPickUp = 0.5; //change when needed
         public static double clawRotation45 = 0.375;
         public static double clawRotation135 = 0.625;
         public static double clawRotation901 = 0.28;
@@ -83,7 +84,7 @@ public class RobotConstants {
         public static String gearShift = "gearShift";
 
 
-
+        public static int slideGround = 0;
         public static int slideSpec = 400;
         public static int slideSample = 800;
         public static int slideIncrement = 10;

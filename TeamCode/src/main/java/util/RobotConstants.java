@@ -112,7 +112,8 @@ public class RobotConstants {
         public static double LRPitchDropOff = 0.03;
         public static double pitchSpecScore = 0.62;
         public static double LRPitchSpecScore =0.66;
-        public static double LRPitchSpecLongDropOff = 0.06;
+        public static double LRPitchSpecLongDropOff1 = 0.1;
+        public static double LRPitchSpecLongDropOff2 = 0.06;
 
         public static double gearShiftDrive = 0.95;
         public static double gearShiftClimb = 0;

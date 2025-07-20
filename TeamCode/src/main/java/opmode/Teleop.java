@@ -21,7 +21,7 @@ import commands.states.*;
 
 @TeleOp (name = "TeleOp")
 public class Teleop extends CommandOpMode {
-
+    int target = RobotConstants.Outtake.slideGround;
     private final RobotHardware robot = RobotHardware.getInstance();
     private GamepadEx driver;
     private SampleStates sampleState = SampleStates.DRIVE;
@@ -52,7 +52,7 @@ public class Teleop extends CommandOpMode {
         driver = new GamepadEx(gamepad1);
 
         robot.init(hardwareMap,driver);
-
+        robot.outtake.resetEncoder();
         telemetry.addData("slide pos: ",robot.outtakeRear.getCurrentPosition());
         telemetry.addData("slide pos: ",robot.outtakeFront.getCurrentPosition());
         telemetry.addData("State: ",teleopState);
@@ -72,7 +72,7 @@ public class Teleop extends CommandOpMode {
         }
 
         if (driver.gamepad.ps) {
-            robot.outtake.retractSlides();
+            target = 0;
             robot.imu.resetYaw();
         }
 
@@ -81,9 +81,11 @@ public class Teleop extends CommandOpMode {
         Timer timer1 = new Timer();
         Timer timer2 = new Timer();
 
+        robot.outtake.PIDloop(target);
 
         telemetry.addData("slide pos: ",robot.outtakeRear.getCurrentPosition());
         telemetry.addData("slide pos: ",robot.outtakeFront.getCurrentPosition());
+        telemetry.addData("target slide pos",target);
         telemetry.addData("State: ",teleopState);
         telemetry.addData("Sample State: ",sampleState);
         telemetry.addData("Spec State: ",specState);
@@ -115,7 +117,7 @@ public class Teleop extends CommandOpMode {
                         }
                     };
 
-                    robot.outtake.retractSlides();
+                    target = 0;
                     robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageDrive);
                     robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
                     robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
@@ -163,12 +165,12 @@ public class Teleop extends CommandOpMode {
                     robot.clawRotation.setPosition(RobotConstants.Intake.clawRotationDrive);
                     robot.intakePitch.setPosition(RobotConstants.Intake.intakePitchDrive);
                     robot.turret.setPosition(RobotConstants.Intake.turretDrive);
-                    robot.outtake.setPosition(RobotConstants.Outtake.slideSpec);
+                    target = RobotConstants.Outtake.slideSpec;
 
 
                     if (driver.gamepad.a) {
                         robot.outtake.setClawState(Outtake.ClawState.OPEN);
-                        robot.outtake.retractSlides();
+                        target = RobotConstants.Outtake.slideGround;
                         robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageDrive);
                         robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
                         robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
@@ -254,7 +256,7 @@ public class Teleop extends CommandOpMode {
                             tempSpec = true;
                         }
                     };
-                    robot.outtake.retractSlides();
+                    target = RobotConstants.Outtake.slideGround;
                     if (driver.gamepad.y) {
                         robot.intake.setClawState(Intake.ClawState.OPEN);
                         robot.outtake.setClawState(Outtake.ClawState.CLOSED);
@@ -282,7 +284,7 @@ public class Teleop extends CommandOpMode {
 
                     TimerTask slideWait = new TimerTask() {
                         public void run() {
-                            robot.outtake.setPosition(-1000);
+                           target = -1000;
                         }
                     };
                     if (driver.gamepad.b) {
@@ -292,13 +294,13 @@ public class Teleop extends CommandOpMode {
                         robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
                         robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
                         robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageScore);
-                        robot.outtake.setPosition(RobotConstants.Outtake.slideClimb1);
+                        target = RobotConstants.Outtake.slideClimb1;
                     }
                     if (driver.gamepad.right_stick_button) {
-                        robot.outtake.setPosition(RobotConstants.Outtake.slideClimb2);
+                        target = RobotConstants.Outtake.slideClimb2;
                     }
                     if (driver.gamepad.left_bumper) {
-                        robot.outtake.setPosition(RobotConstants.Outtake.slideClimb3);
+                        target = RobotConstants.Outtake.slideClimb3;
 
                     }
                     if(driver.gamepad.right_bumper) {
@@ -324,8 +326,8 @@ public class Teleop extends CommandOpMode {
                     robot.intake.setClawState(Intake.ClawState.CLOSED);
                     robot.clawRotation.setPosition(RobotConstants.Intake.clawRotationDrive);
                     robot.outtake.setClawState(Outtake.ClawState.OPEN);
-                    robot.outtake.retractSlides();
-                    robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageDrive);
+                    target = RobotConstants.Outtake.slideGround;
+                            robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageDrive);
                     robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDrive);
                     robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDrive);
                     robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchDrive);
@@ -397,7 +399,7 @@ public class Teleop extends CommandOpMode {
 
                     TimerTask score = new TimerTask() {
                         public void run() {
-                            robot.outtake.setPosition(RobotConstants.Outtake.slideSample);
+                            target = RobotConstants.Outtake.slideSample;
                             robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageScore);
                             robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchScore);
                             robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchScore);
@@ -440,7 +442,7 @@ public class Teleop extends CommandOpMode {
                         timer1.schedule(slideWait,250);
                     }
                     if(driver.gamepad.y) {
-                        robot.outtake.retractSlides();
+                        target = RobotConstants.Outtake.slideGround;
                     }
                     break;
 

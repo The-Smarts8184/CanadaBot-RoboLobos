@@ -16,6 +16,7 @@ import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import pedroPathing.constants.*;
 
 import util.RobotConstants;
+import util.RobotHardware;
 
 
 @Autonomous(name = "First Write", group = "Examples")
@@ -29,6 +30,7 @@ public class Bucket extends OpMode {
     /** This is the variable where we store the state of our auto.
      * It is used by the pathUpdate method. */
     private int pathState;
+    private RobotHardware robot;
 
     /* Create and Define Poses + Paths
      * Poses are built with three constructors: x, y, and heading (in Radians).

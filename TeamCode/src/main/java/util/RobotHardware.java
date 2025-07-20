@@ -1,5 +1,8 @@
 package util;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -50,6 +53,14 @@ public class RobotHardware {
     public Servo outtakeLPitch;
     public Servo outtakeRPitch;
     public Servo gearShift;
+
+    public static PIDController controller;
+    public static double p =0.03, i = .00005, d = 0.00001;
+    public static double f = 0;
+
+    public static int target = 0;
+
+    public final double ticks_in_degree = 384.5/360;
 
     // Hardware
     private HardwareMap hardwareMap;
@@ -159,6 +170,10 @@ public class RobotHardware {
         this.gearShift = hardwareMap.servo.get(RobotConstants.Outtake.gearShift);
         this.gearShift.setPosition(RobotConstants.Outtake.gearShiftDrive);
 
+        controller = new PIDController(p, i,d);
+
+        //backMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
         drivetrain = new Drivetrain();
         intake = new Intake();
@@ -168,4 +183,6 @@ public class RobotHardware {
 //        limelightClass = new Limelight();
 //        cameraCalcs = new CameraCalculations();
     }
+
+
 }

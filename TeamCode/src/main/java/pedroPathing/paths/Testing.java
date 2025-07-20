@@ -1,5 +1,6 @@
 package pedroPathing.paths;
 
+import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
 import com.pedropathing.pathgen.BezierLine;
@@ -25,6 +26,8 @@ import pedroPathing.AutoSubsystems.Outtake.OuttakeClaw;
 import pedroPathing.AutoSubsystems.Outtake.OuttakeWrist;
 import pedroPathing.AutoSubsystems.Outtake.RightPitch;
 import pedroPathing.AutoSubsystems.Outtake.Slides;
+import pedroPathing.constants.FConstants;
+import pedroPathing.constants.LConstants;
 import util.RobotConstants;
 
 @Autonomous(name = "Testing")
@@ -143,17 +146,22 @@ public class Testing extends PedroOpMode {
     public Command secondRoutine() {
         return new SequentialGroup(
                 new ParallelGroup(
-                        new FollowPath(scorePreload),
                         Slides.INSTANCE.toScoreBucket()
-                ),
-                new ParallelGroup(
-                        new FollowPath(grabPickup1),
-                        IntakeClaw.INSTANCE.open(),
-                        Slides.INSTANCE.toGround()
-                ),
-                new Delay(1.0),
-                Slides.INSTANCE.toGround()
+//                        new FollowPath(scorePreload),
+                )
         );
 
+    }
+
+    @Override
+    public void onInit() {
+        follower = new Follower(hardwareMap, FConstants.class, LConstants.class);
+        follower.setStartingPose(startPose);
+        buildPaths();
+    }
+
+    @Override
+    public void onUpdate() {
+        secondRoutine().invoke();
     }
 }

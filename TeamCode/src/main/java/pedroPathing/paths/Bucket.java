@@ -11,8 +11,10 @@ import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.rowanmcalpin.nextftc.pedro.PedroOpMode;
 
+import pedroPathing.AutoSubsystems.Outtake.Slides;
 import pedroPathing.constants.*;
 
 import util.RobotConstants;
@@ -25,6 +27,7 @@ public class Bucket extends OpMode {
     private Timer pathTimer, actionTimer, opmodeTimer;
     private double initX = RobotConstants.Auto.initX;
     private double initY = RobotConstants.Auto.initY;
+//    private Slides slides = new Slides();
 
     /** This is the variable where we store the state of our auto.
      * It is used by the pathUpdate method. */
@@ -148,6 +151,7 @@ public class Bucket extends OpMode {
         switch (pathState) {
             case 0:
                 follower.followPath(scorePreload);
+//                slides.toScoreBucket();
                 setPathState(1);
                 break;
             case 1:

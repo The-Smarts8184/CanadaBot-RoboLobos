@@ -85,13 +85,13 @@ public class RobotConstants {
 
 
         public static int slideGround = 0;
-        public static int slideSpec = 400;
-        public static int slideSample = 800;
+        public static int slideSpec = 660;
+        public static int slideSample = 1320;
         public static int slideIncrement = 10;
         public static int slideClimb1 = 1200;
         public static int slideClimb2 = 500;
         public static int slideClimb3 = 2400;
-        public static int slideMax = 1000;
+        public static int slideMax = 1600;
         public static double slidePowerUp = 1;
         public static double slidePowerDown = -1;
 

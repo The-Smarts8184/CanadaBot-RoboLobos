@@ -81,7 +81,7 @@ public class Teleop extends CommandOpMode {
         Timer timer1 = new Timer();
         Timer timer2 = new Timer();
 
-        robot.outtake.PIDloop(target);
+        robot.outtake.PIDLoop(target);
 
         telemetry.addData("slide pos: ",robot.outtakeRear.getCurrentPosition());
         telemetry.addData("slide pos: ",robot.outtakeFront.getCurrentPosition());

@@ -7,7 +7,6 @@ package subsystems;
 import static util.RobotHardware.controller;
 
 import com.arcrobotics.ftclib.command.Subsystem;
-import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import util.RobotConstants;
@@ -31,7 +30,7 @@ public class Outtake implements Subsystem {
 
     }
 
-    public void PIDloop(int target) {
+    public void PIDLoop(int target) {
         controller.setPID(this.p, this.i, this.d);
 
         int pos = robot.outtakeRear.getCurrentPosition();
@@ -61,8 +60,8 @@ public class Outtake implements Subsystem {
     public void resetEncoder() {
         robot.outtakeRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.outtakeFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.outtakeRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.outtakeFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.outtakeRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.outtakeFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
 //    public void retractSlides() {

@@ -1,5 +1,7 @@
 package pedroPathing.AutoSubsystems.Outtake;
 
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.rowanmcalpin.nextftc.core.Subsystem;
 import com.rowanmcalpin.nextftc.core.command.Command;
 import com.rowanmcalpin.nextftc.core.control.controllers.PIDFController;
@@ -18,7 +20,9 @@ public class Slides extends Subsystem {
     // USER CODE
     public MotorEx encoderMotor, drivingMotor;
 
-    public PIDFController leadController = new PIDFController(0.005, 0.0, 0.0, new StaticFeedforward(0.0));
+    public PIDFController leadController = new PIDFController(0.03, 0.00005, 0.00001, new StaticFeedforward(0.0));
+
+
 
     public Command toGround() {
         return new RunToPosition(slideSystem, // MOTOR TO MOVE
@@ -46,7 +50,8 @@ public class Slides extends Subsystem {
     public void initialize() {
         encoderMotor = new MotorEx(Outtake.outtakeFront);
         drivingMotor = new MotorEx(Outtake.outtakeRear);
-        slideSystem = new MotorGroup(encoderMotor, drivingMotor);
+        drivingMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        slideSystem = new MotorGroup(drivingMotor, encoderMotor);
     }
 
 }

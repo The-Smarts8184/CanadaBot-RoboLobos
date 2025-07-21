@@ -14,20 +14,20 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import java.util.TimerTask;
 
-import pedroPathing.constants.*;
-
+import pedroPathing.constants.FConstants;
+import pedroPathing.constants.LConstants;
 import subsystems.Intake;
 import util.RobotConstants;
 import util.RobotHardware;
 
 
-@Autonomous(name = "First Write", group = "Examples")
-public class Bucket extends OpMode {
+@Autonomous(name = "Second Write", group = "Examples")
+public class Spec extends OpMode {
 
     private Follower follower;
     private Timer pathTimer, opmodeTimer,actionTimer;
     private double initX = RobotConstants.Auto.initX;
-    private double initY = RobotConstants.Auto.initY;
+    private double initY = RobotConstants.Auto.specInitY;
     private final RobotHardware robot = RobotHardware.getInstance();
     TimerTask slidePreload = new TimerTask() {
         public void run() {
@@ -51,30 +51,61 @@ public class Bucket extends OpMode {
 
     /** list of Poses.
      Start Pose of our robot */
-    private final Pose startPose = new Pose(7.375,111.75,Math.toRadians(0));
+    //0 radians = outtake claw facing wall
+    private final Pose startPose = new Pose(7.375,64.5,Math.toRadians(0));
+    ///
+    ///
+    private final Pose preloadPose = new Pose(26.0 + initX, 0 + initY, Math.toRadians(0));
+    private final Pose controlToPushOne1Pose = new Pose(0, 30, Math.toRadians(0)); //150
+    private final Pose controltoPushOne2Pose = new Pose(106 + initX,initY - 36,Math.toRadians(0));
+    private final Pose goingToPushSpecOnePose = new Pose(52.0 + initX, -42 + initY, Math.toRadians(315));
+    private final Pose pushedSpecOnePose = new Pose(11 + initX, -42 + initY, Math.toRadians(0));
 
-    /// Scoring Pose of our robot. It is facing the submersible at a -45 degree (315 degree) angle.
-    private final Pose scorePose = new Pose(4.8 + initX, 11.25 + initY, Math.toRadians(315));
 
-    /// Lowest (First) Sample from the Spike Mark
-    private final Pose pickup1Pose = new Pose(25.25 + initX, 7.5 + initY, Math.toRadians(0));
+    private final Pose controlToPushTwo1Pose = new Pose(75 + initX, initY - 36, Math.toRadians(0));
+    private final Pose controlToPushTwo2Pose = new Pose(55, 6, Math.toRadians(0));
+    private final Pose endPush2Pose = new Pose(10, 12, Math.toRadians(0));
 
-    /// Middle (Second) Sample from the Spike Mark
-    private final Pose pickup2Pose = new Pose(25.5 + initX, 17.75 + initY, Math.toRadians(0));
+    private final Pose controlToPushThree1Pose = new Pose(75 + initX, initY - 36, Math.toRadians(0));
+    private final Pose controlToPushThree2Pose = new Pose(55, 6, Math.toRadians(0));
+    private final Pose endPush3Pose = new Pose(10, 12, Math.toRadians(0));
 
-    /// Highest (Third) Sample from the Spike Mark
-    private final Pose pickup3Pose = new Pose(26.25 + initX, 24.17 + initY, Math.toRadians(45));
 
-    /// Park Pose for our robot, after we do all of the scoring.
-    private final Pose parkPose = new Pose(46 + initX, -25 + initY, Math.toRadians(270));
 
-    /** Park Control Pose for our robot, this is used to manipulate the bezier curve that we will create for the parking.
-     * The Robot will not go to this pose, it is used a control point for our bezier curve. */
-    private final Pose parkControlPose = new Pose(62 + initX, 24 + initY);
+
+
+
+    private final Pose prepareForPushingOnePose = new Pose(45 + initX,  initY -37.7, Math.toRadians(0)); //30
+    private final Pose goingToPushSpecTwoPose = new Pose(50 + initX, -52 + initY, Math.toRadians(315));
+    private final Pose pushedSpecTwoPose = new Pose(52 + initX, -52 + initY, Math.toRadians(0));
+    private final Pose pushSpecPose2 = new Pose(12.5 + initX, -52 + initY, Math.toRadians(0));
+
+    private final Pose prepareForPushingTwoPose = new Pose(46 + initX, -46 + initY, Math.toRadians(0)); //30
+    private final Pose goingToPushSpecThreePose = new Pose(52 + initX, -57.5 + initY, Math.toRadians(0)); //315
+    private final Pose pushSpec3Pose2 = new Pose(12.5 + initX, -55 + initY, Math.toRadians(0));  //315
+   // private final Pose pushedSpecThreePose = new Pose(4.8 + initX, 11.25 + initY, Math.toRadians(315));
+
+    private final Pose aboutToGrabOnePose = new Pose(5,-30,Math.toRadians(0));
+    private final Pose grabOnePose = new Pose(0,-30,Math.toRadians(0));
+
+
+    private final Pose scoreOnePosePose = new Pose(7.375,111.75,Math.toRadians(0));
+    private final Pose aboutToGrabTwoPose = new Pose(7.375,111.75,Math.toRadians(0));
+    private final Pose grabTwoPose = new Pose(7.375,111.75,Math.toRadians(0));
+    private final Pose scoreTwoPosePose = new Pose(7.375,111.75,Math.toRadians(0));
+    private final Pose aboutToGrabThreePose = new Pose(7.375,111.75,Math.toRadians(0));
+    private final Pose grabThreePose = new Pose(7.375,111.75,Math.toRadians(0));
+    private final Pose scoreThreePosePose = new Pose(7.375,111.75,Math.toRadians(0));
+    private final Pose aboutToGrabFourPose = new Pose(7.375,111.75,Math.toRadians(0));
+    private final Pose grabFourPose = new Pose(7.375,111.75,Math.toRadians(0));
+    private final Pose scoreFourPosePose = new Pose(7.375,111.75,Math.toRadians(0));
+
+
+
 
     /** These are our Paths and PathChains that we will define in buildPaths() */
     private Path scorePreload, park;
-    private PathChain grabPickup1, grabPickup2, grabPickup3, scorePickup1, scorePickup2, scorePickup3;
+    private PathChain push1, push2, push3, grabPickup1, grabPickup2, grabPickup3, scorePickup1, scorePickup2, scorePickup3;
 
     /** Build the paths for the auto (adds, for example, constant/linear headings while doing paths)
      * It is necessary to do this so that all the paths are built before the auto starts. **/
@@ -96,57 +127,53 @@ public class Bucket extends OpMode {
          * Here is a explanation of the difference between Paths and PathChains <https://pedropathing.com/commonissues/pathtopathchain.html> */
 
         /* This is our scorePreload path. We are using a BezierLine, which is a straight line.*/
-        scorePreload = new Path(new BezierLine(new Point(startPose),new Point(scorePose)));
-        scorePreload.setLinearHeadingInterpolation(startPose.getHeading(),scorePose.getHeading());
+        scorePreload = new Path(new BezierLine(new Point(startPose),new Point(preloadPose)));
+        scorePreload.setLinearHeadingInterpolation(startPose.getHeading(),preloadPose.getHeading());
 
         /* Here is an example for Constant Interpolation
         scorePreload.setConstantInterpolation(startPose.getHeading()); */
 
         /* This is our grabPickup1 PathChain.
         We are using a single path with a BezierLine, which is a straight line. */
-        grabPickup1 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(scorePose), new Point(pickup1Pose)))
-                .setLinearHeadingInterpolation(scorePose.getHeading(), pickup1Pose.getHeading())
+
+        push1 = follower.pathBuilder()
+                .addPath(new BezierCurve(new Point(preloadPose), new Point(controlToPushOne1Pose),new Point(controltoPushOne2Pose),new Point(pushedSpecOnePose)))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
+                .addPath(new BezierCurve(new Point(pushedSpecOnePose), new Point(controlToPushTwo1Pose),new Point(controlToPushTwo2Pose),new Point(endPush2Pose)))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
+
+        push2 = follower.pathBuilder()
+                .addPath(new BezierCurve(new Point(pushedSpecOnePose), new Point(controlToPushTwo1Pose),new Point(controlToPushTwo2Pose),new Point(endPush2Pose)))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
+                .build();
+
+//        push2 = follower.pathBuilder()
+//                .addPath(new BezierLine(new Point(pushedSpecOnePose), new Point(prepareForPushingOnePose)))
+//                .setLinearHeadingInterpolation(pushedSpecOnePose.getHeading(), prepareForPushingOnePose.getHeading())
+//                .addPath(new BezierLine(new Point(prepareForPushingOnePose), new Point(goingToPushSpecTwoPose)))
+//                .setLinearHeadingInterpolation(prepareForPushingOnePose.getHeading(), goingToPushSpecTwoPose.getHeading())
+//                .addPath(new BezierLine(new Point(goingToPushSpecTwoPose), new Point(pushedSpecTwoPose)))
+//                .setLinearHeadingInterpolation(goingToPushSpecTwoPose.getHeading(), pushedSpecTwoPose.getHeading())
+//                .addPath(new BezierLine(new Point(pushedSpecTwoPose), new Point(pushSpecPose2)))
+//                .setLinearHeadingInterpolation(pushedSpecTwoPose.getHeading(), pushSpecPose2.getHeading())
+//
+//                .build();
+
+        push3 = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(pushSpecPose2), new Point(prepareForPushingTwoPose)))
+                .setLinearHeadingInterpolation(pushSpecPose2.getHeading(), prepareForPushingTwoPose.getHeading())
+                .addPath(new BezierLine(new Point(prepareForPushingTwoPose), new Point(goingToPushSpecThreePose)))
+                .setLinearHeadingInterpolation(prepareForPushingTwoPose.getHeading(), goingToPushSpecThreePose.getHeading())
+                .addPath(new BezierLine(new Point(goingToPushSpecThreePose), new Point(pushSpec3Pose2)))
+                .setLinearHeadingInterpolation(goingToPushSpecThreePose.getHeading(), pushSpec3Pose2.getHeading())
+
+                .build();
+
 
         /* This is our scorePickup1 PathChain.
         We are using a single path with a BezierLine, which is a straight line. */
-        scorePickup1 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickup1Pose), new Point(scorePose)))
-                .setLinearHeadingInterpolation(pickup1Pose.getHeading(), scorePose.getHeading())
-                .build();
 
-        /* This is our grabPickup2 PathChain.
-        We are using a single path with a BezierLine, which is a straight line. */
-        grabPickup2 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(scorePose), new Point(pickup2Pose)))
-                .setLinearHeadingInterpolation(scorePose.getHeading(),pickup2Pose.getHeading())
-                .build();
-
-        /* This is our scorePickup2 PathChain.
-        We are using a single path with a BezierLine, which is a straight line. */
-        scorePickup2 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickup2Pose), new Point(scorePose)))
-                .setLinearHeadingInterpolation(pickup2Pose.getHeading(), scorePose.getHeading())
-                .build();
-
-        /* This is our grabPickup3 PathChain.
-        We are using a single path with a BezierLine, which is a straight line. */
-        grabPickup3 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(scorePose), new Point(pickup3Pose)))
-                .setLinearHeadingInterpolation(scorePose.getHeading(), pickup3Pose.getHeading())
-                .build();
-
-        /* This is our scorePickup3 PathChain. We are using a single path with a BezierLine, which is a straight line. */
-        scorePickup3 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickup3Pose), new Point(scorePose)))
-                .setLinearHeadingInterpolation(pickup3Pose.getHeading(), scorePose.getHeading())
-                .build();
-
-        /* This is our park path. We are using a BezierCurve with 3 points,
-        which is a curved line that is curved based off of the control point */
-        park = new Path(new BezierCurve(new Point(scorePose), /* Control Point */ new Point(parkControlPose), new Point(parkPose)));
-        park.setLinearHeadingInterpolation(scorePose.getHeading(), parkPose.getHeading());
     }
 
     /** This switch is called continuously and runs the pathing, at certain points, it triggers the action state.
@@ -158,37 +185,36 @@ public class Bucket extends OpMode {
             case 0:
                 robot.intake.setClawState(Intake.ClawState.CLOSED);
                 follower.followPath(scorePreload);
-                robot.outtake.PIDLoop(RobotConstants.Outtake.slideSample);
+             //   robot.outtake.PIDLoop(RobotConstants.Outtake.slideSample);
                 setPathState(1);
                 break;
             case 1:
                 if(!follower.isBusy()) {
                     /* Score Preload */
-
                     /* Since this is a pathChain, we can have Pedro hold the end point
                     while we are grabbing the sample */
-                    robot.intake.setClawState(Intake.ClawState.OPEN);
-                    follower.followPath(grabPickup1,true);
-                    robot.outtake.PIDLoop(RobotConstants.Outtake.slideGround);
-                    setPathState(2);
+                   // robot.intake.setClawState(Intake.ClawState.OPEN);
+                    follower.followPath(push1,true);
+              //      robot.outtake.PIDLoop(RobotConstants.Outtake.slideGround);
+                    setPathState(9);
                 }
                 break;
             case 2:
                 if(!follower.isBusy()) {
                     /* Grab Sample */
-                    robot.intake.setClawState(Intake.ClawState.CLOSED);
-                    follower.followPath(scorePickup1,true);
-                    robot.outtake.PIDLoop(RobotConstants.Outtake.slideSample);
-                    setPathState(3);
+                 //   robot.intake.setClawState(Intake.ClawState.CLOSED);
+                    follower.followPath(push2,true);
+             //       robot.outtake.PIDLoop(RobotConstants.Outtake.slideSample);
+                    setPathState(9);
                 }
                 break;
             case 3:
                 if(!follower.isBusy()) {
                     /* Score Sample */
 
-                    robot.intake.setClawState(Intake.ClawState.OPEN);
-                    follower.followPath(grabPickup2,true);
-                    robot.outtake.PIDLoop(RobotConstants.Outtake.slideGround);
+              //      robot.intake.setClawState(Intake.ClawState.OPEN);
+                    follower.followPath(push2,true);
+             //       robot.outtake.PIDLoop(RobotConstants.Outtake.slideGround);
                     setPathState(4);
                 }
                 break;
@@ -196,20 +222,20 @@ public class Bucket extends OpMode {
                 if(!follower.isBusy()) {
                     /* Grab Sample */
 
-                    robot.intake.setClawState(Intake.ClawState.CLOSED);
-                    follower.followPath(scorePickup2,true);
-                    robot.outtake.PIDLoop(RobotConstants.Outtake.slideSample);
-                    setPathState(5);
+             //       robot.intake.setClawState(Intake.ClawState.CLOSED);
+                    follower.followPath(push3,true);
+                //    robot.outtake.PIDLoop(RobotConstants.Outtake.slideSample);
+                    setPathState(9);
                 }
                 break;
             case 5:
                 if(!follower.isBusy()) {
                     /* Score Sample */
 
-                    robot.intake.setClawState(Intake.ClawState.OPEN);
+             //       robot.intake.setClawState(Intake.ClawState.OPEN);
                     follower.followPath(grabPickup3,true);
-                    robot.outtake.PIDLoop(RobotConstants.Outtake.slideGround);
-                    setPathState(6);
+              //      robot.outtake.PIDLoop(RobotConstants.Outtake.slideGround);
+                    setPathState(9);
                 }
                 break;
             case 6:
@@ -240,6 +266,11 @@ public class Bucket extends OpMode {
                     follower.followPath(park,true);
                     robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageScore);
                     setPathState(-1);
+                }
+            case 9:
+                if(!follower.isBusy()) {
+                    telemetry.addLine("idle");
+                    telemetry.update();
                 }
                 break;
         }

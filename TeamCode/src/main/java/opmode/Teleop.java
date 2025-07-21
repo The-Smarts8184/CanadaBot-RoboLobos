@@ -225,7 +225,7 @@ public class Teleop extends CommandOpMode {
 
                     TimerTask swapStateIntake = new TimerTask() {
                         public void run() {
-                            setSpecState(SpecStates.INTAKE);
+
                         }
                     };
                     TimerTask longDropOff = new TimerTask() {
@@ -269,13 +269,10 @@ public class Teleop extends CommandOpMode {
                         robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff1);
                         robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff1);
                         robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageScore);
-                        timer2.schedule(longDropOff,200);
+                        timer2.schedule(longDropOff,300);
                     }
                     if (driver.gamepad.a) {
-                        robot.clawRotation.setPosition(RobotConstants.Intake.clawRotationDrive);
-                        robot.intakePitch.setPosition(RobotConstants.Intake.intakePitchDrive);
-                        robot.turret.setPosition(RobotConstants.Intake.turretDrive);
-                        timer1.schedule(swapStateIntake,400);
+                        setSpecState(SpecStates.DRIVE);
                     }
                     break;
                 case CLIMB:

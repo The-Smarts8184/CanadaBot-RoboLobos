@@ -37,13 +37,24 @@ public class Outtake implements Subsystem {
         int backMotorPos = pos;
         int frontMotorPos = robot.outtakeFront.getCurrentPosition();
 
+
         double pid = controller.calculate(pos, target);
 
-        power = pid;
+        power = Math.max(-1.0, Math.min(1.0,pid));
+
 
         robot.outtakeRear.setPower(power);
         robot.outtakeFront.setPower(power);
+        if(pos < 50 && target == 0) {
+            robot.outtakeRear.setPower(0);
+            robot.outtakeFront.setPower(0);
+        }
 
+
+    }
+
+    public double getPower(){
+        return power;
     }
 
 //    public void setPosition(int position) {
@@ -56,7 +67,12 @@ public class Outtake implements Subsystem {
 //        robot.outtakeFront.setPower(power);
 //    }
 
-
+    public void setBackMotorPosition(int position){
+        double power = RobotConstants.Outtake.slidePowerUp;
+        robot.outtakeRear.setTargetPosition(position);
+        robot.outtakeRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.outtakeRear.setPower(power);
+    }
     public void resetEncoder() {
         robot.outtakeRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.outtakeFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

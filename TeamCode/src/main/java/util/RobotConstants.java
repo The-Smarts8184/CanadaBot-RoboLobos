@@ -88,20 +88,20 @@ public class RobotConstants {
         public static int slideSpec = 700;
         public static int slideSample = 1320;
         public static int slideIncrement = 20;
-        public static int slideClimb1 = 1980;
-        public static int slideClimb2 = 950;
-        public static int slideClimb3 = 4000;
+        public static int slideClimb1 = 2400;
+        public static int slideClimb2 = 1000;
+        public static int slideClimb3 = 4500;
         public static int slideMax = 1600;
         public static double slidePowerUp = 1;
         public static double slidePowerDown = -1;
 
 
 
-        public static double linkageDrive = 0.04;
+        public static double linkageDrive = 0.03;
         public static double linkageScore = 1;
 
         public static double pitchDrive = 0;
-        public static double pitchScore = 0.65;
+        public static double pitchScore = 0.64;
         public static double LRPitchDrive = 0.6;
         public static double LRPitchScore = 0.25;
         public static double LRPitchTransfer = 0.675;

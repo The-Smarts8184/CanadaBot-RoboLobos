@@ -276,25 +276,60 @@ public class Teleop extends CommandOpMode {
                     }
                     break;
                 case CLIMB:
-                    robot.climb.shiftGears(Climb.GearState.GearClimb);
 
-
+                    robot.intake.retractSlides();
                     TimerTask slideWait = new TimerTask() {
                         public void run() {
                            target = -1000;
                         }
                     };
+                    TimerTask shiftEncoderWait = new TimerTask() {
+                        public void run() {
+                            robot.outtake.resetEncoder();
+                        }
+                    };
+                    TimerTask shiftTargetWait = new TimerTask() {
+                        public void run() {
+                            target = 0;
+                        }
+                    };
+                    TimerTask armResetWait = new TimerTask() {
+                        public void run() {
+                            robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
+                            robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
+                        }
+                    };
                     if (driver.gamepad.b) {
                         setSampleState(SampleStates.DRIVE);
                     }
+                    if (driver.gamepad.dpad_up) {
+                        robot.climb.shiftGears(Climb.GearState.GearClimb);
+                        target = 200;
+                        timer1.schedule(slideWait,500);
+                        timer2.schedule(shiftEncoderWait,1000);
+                        timer1.schedule(shiftTargetWait,1200);
+
+                    }
+                    if (driver.gamepad.dpad_down) {
+                        robot.climb.shiftGears(Climb.GearState.GearDrive);
+                        target = 200;
+                        timer1.schedule(slideWait,500);
+                        timer2.schedule(shiftEncoderWait,1000);
+                        timer1.schedule(shiftTargetWait,1200);
+
+                    }
                     if (driver.gamepad.left_stick_button) {
-                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
-                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
+                        robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchDrive);
+                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff3);
+                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff3);
                         robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageScore);
                         target = RobotConstants.Outtake.slideClimb1;
                     }
                     if (driver.gamepad.right_stick_button) {
                         target = RobotConstants.Outtake.slideClimb2;
+                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff1);
+                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff1);
+                        timer1.schedule(armResetWait,500);
                     }
                     if (driver.gamepad.left_bumper) {
                         target = RobotConstants.Outtake.slideClimb3;

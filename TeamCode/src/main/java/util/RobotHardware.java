@@ -55,7 +55,8 @@ public class RobotHardware {
     public Servo gearShift;
 
     public static PIDController controller;
-    public static double p =0.008, i = 0.00005, d = 0.00001;
+//    public static double p =0.008, i = 0.00005, d = 0.00001;
+    public static double p =0.03, i = 0.00005, d = 0.00001;
     public static double f = 0;
 
     public static int target = 0;

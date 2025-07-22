@@ -61,32 +61,26 @@ public class Copy extends OpMode {
     ///
     ///
     private final Pose preloadPose = new Pose(22 + initX, 0 + initY, Math.toRadians(0));
-    private final Pose controlToPushOne1Pose = new Pose(0, 30, Math.toRadians(0)); //150
-    private final Pose controltoPushOne2Pose = new Pose(85 + initX,initY - 33,Math.toRadians(0));
+    private final Pose controlToPushOne1Pose = new Pose(13, 25, Math.toRadians(0)); //150
+    private final Pose controltoPushOne2Pose = new Pose(105,28,Math.toRadians(0));
     private final Pose pushedSpecOnePose = new Pose(11 + initX, -42 + initY, Math.toRadians(0));
 
 
-    private final Pose controlToPushTwo1Pose = new Pose(68 + initX, initY - 36, Math.toRadians(0));
-    private final Pose controlToPushTwo2Pose = new Pose(55, 6, Math.toRadians(0));
-    private final Pose endPush2Pose = new Pose(13 + initX, 12, Math.toRadians(0));
+    private final Pose controlToPushTwo1Pose = new Pose(75, 28.5, Math.toRadians(0));
+    private final Pose controlToPushTwo2Pose = new Pose(65, 8.5, Math.toRadians(0));
+    private final Pose endPush2Pose = new Pose(13 + initX, initY -52.5, Math.toRadians(0));
 
     private final Pose controlToPushThree1Pose = new Pose(56, 22, Math.toRadians(0));
     private final Pose controlToPushThree2Pose = new Pose(70, 7, Math.toRadians(0));
     private final Pose endPush3Pose = new Pose(17, 7, Math.toRadians(0));
 
     private final Pose goToSpec = new Pose(1 + initX, 34, Math.toRadians(0));
-    private final Pose goToSpecControl = new Pose(17.5, 30, Math.toRadians(0));
-    private final Pose pickUpFirstSpec = new Pose(6.5 + initX, 34, Math.toRadians(0));
+    private final Pose goToSpecControl = new Pose(32.5, 22.5, Math.toRadians(0));
+    private final Pose pickUpFirstSpec = new Pose(8.25 + initX, 34, Math.toRadians(0));
     private final Pose pickUpSpec = new Pose(4.5 + initX, 34, Math.toRadians(0));
 
-    private final Pose controlToScoreSpec = new Pose(7, 68, Math.toRadians(0));
-    private final Pose scoreSpec1 = new Pose(19.75 + initX, 5 + initY, Math.toRadians(0));
-
-
-
-
-
-
+    private final Pose controlToScoreSpec = new Pose(13, 67.5, Math.toRadians(0));
+    private final Pose scoreSpec1 = new Pose(19.75 + initX, 1.5 + initY, Math.toRadians(0));
 
     private final Pose prepareForPushingOnePose = new Pose(45 + initX,  initY -37.7, Math.toRadians(0)); //30
     private final Pose goingToPushSpecTwoPose = new Pose(50 + initX, -52 + initY, Math.toRadians(315));
@@ -152,14 +146,12 @@ public class Copy extends OpMode {
         push1 = follower.pathBuilder()
                 .addPath(new BezierCurve(new Point(preloadPose), new Point(controlToPushOne1Pose),new Point(controltoPushOne2Pose),new Point(pushedSpecOnePose)))
                 .setConstantHeadingInterpolation(Math.toRadians(0))
-
                 .build();
+
         push2 = follower.pathBuilder()
                 .addPath(new BezierCurve(new Point(pushedSpecOnePose), new Point(controlToPushTwo1Pose),new Point(controlToPushTwo2Pose),new Point(endPush2Pose)))
                 .setConstantHeadingInterpolation(Math.toRadians(0))
-
                 .build();
-
 
         push3 = follower.pathBuilder()
                 .addPath(new BezierCurve(new Point(endPush2Pose), new Point(controlToPushThree1Pose),new Point(controlToPushThree2Pose),new Point(endPush3Pose)))
@@ -170,7 +162,6 @@ public class Copy extends OpMode {
                 .addPath(new BezierCurve(new Point(endPush3Pose), new Point(goToSpecControl),new Point(pickUpFirstSpec)))
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
-
 
         scoreSpecimen1 = follower.pathBuilder()
                 .addPath(new BezierCurve(new Point(pickUpSpec), new Point(controlToScoreSpec),new Point(scoreSpec1)))
@@ -382,16 +373,23 @@ public class Copy extends OpMode {
                         setPathState(12);
                     }
                 }
+                break;
             case 12:
                 if(!follower.isBusy()) {
-                    robot.outtakeClaw.setPosition(RobotConstants.Outtake.clawOpen);
-                    target = RobotConstants.Outtake.slideGround;
-                    robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageDrive);
-                    robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchDropOff);
-                    robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
-                    robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
-                    telemetry.addLine("idle");
-                    telemetry.update();
+                    if (tempAutoSpec) {
+                        actionTimer.resetTimer();
+                        tempAutoSpec = false;
+                    }
+                    if(actionTimer.getElapsedTimeSeconds() > .2) {
+                        robot.outtakeClaw.setPosition(RobotConstants.Outtake.clawOpen);
+                        target = RobotConstants.Outtake.slideGround;
+                        robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageDrive);
+                        robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchDropOff);
+                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
+                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
+                        telemetry.addLine("idle");
+                        telemetry.update();
+                    }
                 }
                 break;
         }

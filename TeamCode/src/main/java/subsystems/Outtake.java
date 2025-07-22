@@ -31,25 +31,38 @@ public class Outtake implements Subsystem {
     }
 
     public void PIDLoop(int target) {
-        controller.setPID(this.p, this.i, this.d);
+//        controller.setPID(this.p, this.i, this.d);
+//
+//        int pos = robot.outtakeRear.getCurrentPosition();
+//        int backMotorPos = pos;
+//        int frontMotorPos = robot.outtakeFront.getCurrentPosition();
+//
+//
+//        double pid = controller.calculate(pos, target);
+//
+//        power = Math.max(-1.0, Math.min(1.0,pid));
+//
+//
+//        robot.outtakeRear.setPower(power);
+//        robot.outtakeFront.setPower(power);
+//        if(pos < 50 && target == 0) {
+//            robot.outtakeRear.setPower(0);
+//            robot.outtakeFront.setPower(0);
+//        }
 
-        int pos = robot.outtakeRear.getCurrentPosition();
-        int backMotorPos = pos;
-        int frontMotorPos = robot.outtakeFront.getCurrentPosition();
+        int backPos = robot.outtakeRear.getCurrentPosition();
+        int frontPos = robot.outtakeFront.getCurrentPosition();
 
+        int avgPos = (backPos + frontPos) / 2;
 
-        double pid = controller.calculate(pos, target);
-
-        power = Math.max(-1.0, Math.min(1.0,pid));
-
+        double power = controller.calculate(avgPos, target);
 
         robot.outtakeRear.setPower(power);
         robot.outtakeFront.setPower(power);
-        if(pos < 50 && target == 0) {
+        if(avgPos < 50 && target == 0) {
             robot.outtakeRear.setPower(0);
             robot.outtakeFront.setPower(0);
         }
-
 
     }
 

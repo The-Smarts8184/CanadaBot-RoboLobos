@@ -97,7 +97,7 @@ public class RobotConstants {
 
 
 
-        public static double linkageDrive = 0.1;
+        public static double linkageDrive = 0.04;
         public static double linkageScore = 1;
 
         public static double pitchDrive = 0;

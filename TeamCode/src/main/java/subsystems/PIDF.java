@@ -40,25 +40,44 @@ public class PIDF extends OpMode {
         backMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
-    @Override
-    public void loop() {
-        controller.setPID(p,i,d);
-        int pos = backMotor.getCurrentPosition();
-        int backMotorPos = pos;
-        int frontMotorPos = frontMotor.getCurrentPosition();
+//    @Override
+//    public void loop() {
+//        controller.setPID(p,i,d);
+//        int pos = backMotor.getCurrentPosition();
+//        int backMotorPos = pos;
+//        int frontMotorPos = frontMotor.getCurrentPosition();
+//
+//        double pid = controller.calculate(pos, target);
+//        double ff = Math.cos(Math.toRadians(target/ticks_in_degree)) * f;
+//
+//        double power = pid + ff;
+//
+//        frontMotor.setPower(power);
+//        backMotor.setPower(power);
+//
+//        telemetry.addData("Front Pos", frontMotorPos);
+//        telemetry.addData("Back Pos", backMotorPos);
+//        telemetry.addData("target", target);
+//
+//
+//    }
+@Override
+public void loop() {
+//    controller.setPID(p,i,d);
+    int backPos = backMotor.getCurrentPosition();
+    int frontPos = frontMotor.getCurrentPosition();
 
-        double pid = controller.calculate(pos, target);
-        double ff = Math.cos(Math.toRadians(target/ticks_in_degree)) * f;
+    int avgPos = (backPos + frontPos) / 2;
 
-        double power = pid + ff;
+    double power = controller.calculate(avgPos, target);
 
-        frontMotor.setPower(power);
-        backMotor.setPower(power);
+    frontMotor.setPower(power);
+    backMotor.setPower(power);
 
-        telemetry.addData("Front Pos", frontMotorPos);
-        telemetry.addData("Back Pos", backMotorPos);
-        telemetry.addData("target", target);
+    telemetry.addData("Front Pos", frontPos);
+    telemetry.addData("Back Pos", backPos);
+    telemetry.addData("target", target);
 
 
-    }
+}
 }

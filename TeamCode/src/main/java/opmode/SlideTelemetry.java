@@ -49,8 +49,8 @@ public class SlideTelemetry extends CommandOpMode {
 
         robot.init(hardwareMap,driver);
 
-        telemetry.addData("slide pos: ",robot.outtakeRear.getCurrentPosition());
-        telemetry.addData("slide pos: ",robot.outtakeFront.getCurrentPosition());
+        telemetry.addData("slide rear pos: ",robot.outtakeRear.getCurrentPosition());
+        telemetry.addData("slide front pos: ",robot.outtakeFront.getCurrentPosition());
         telemetry.addData("State: ",teleopState);
         telemetry.addData("Sample State: ",sampleState);
         telemetry.addData("Spec State: ",specState);
@@ -63,8 +63,8 @@ public class SlideTelemetry extends CommandOpMode {
 
         driver.readButtons();
 
-        telemetry.addData("slide pos: ",robot.outtakeRear.getCurrentPosition());
-        telemetry.addData("slide pos: ",robot.outtakeFront.getCurrentPosition());
+        telemetry.addData("slide rear pos: ",robot.outtakeRear.getCurrentPosition());
+        telemetry.addData("slide front pos: ",robot.outtakeFront.getCurrentPosition());
         telemetry.addData("State: ",teleopState);
         telemetry.addData("Sample State: ",sampleState);
         telemetry.addData("Spec State: ",specState);

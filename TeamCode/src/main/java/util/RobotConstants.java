@@ -18,6 +18,7 @@ public class RobotConstants {
         public static int slideDrive = 0;
         public static int slidePower = 1;
         public static int slideSub = 400;
+        public static int slideSubLong = 575;
         public static int slideAutoPickup = 625;
 
 

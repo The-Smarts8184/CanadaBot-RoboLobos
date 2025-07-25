@@ -199,7 +199,7 @@ public class Teleop extends CommandOpMode {
                         robot.intake.setPosition(RobotConstants.Intake.slideSub); //change back to slideSub
                     }
                     if (driver.gamepad.x) {
-                        robot.intake.setPosition(RobotConstants.Intake.slideAutoPickup);
+                        robot.intake.setPosition(RobotConstants.Intake.slideSubLong);
                     }
                     if (robot.intakePitch.getPosition() != RobotConstants.Intake.intakePitchIntake) {
                         robot.intakePitch.setPosition(RobotConstants.Intake.intakePitchSubIn);
@@ -407,7 +407,7 @@ public class Teleop extends CommandOpMode {
                         robot.intake.setPosition(RobotConstants.Intake.slideSub); //change back to slideSub
                     }
                     if (driver.gamepad.x) {
-                        robot.intake.setPosition(RobotConstants.Intake.slideAutoPickup);
+                        robot.intake.setPosition(RobotConstants.Intake.slideSubLong);
                     }
                     TimerTask grabSub = new TimerTask() {
                         public void run() {

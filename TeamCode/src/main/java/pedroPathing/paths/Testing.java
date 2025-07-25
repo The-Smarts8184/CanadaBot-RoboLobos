@@ -30,7 +30,7 @@ import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 import util.RobotConstants;
 
-@Autonomous(name = "Testing")
+@Autonomous(name = "Testing", group = "examples")
 public class Testing extends PedroOpMode {
     public Testing() {
     super(IntakeClaw.INSTANCE, IntakeClawRotation.INSTANCE, IntakePitch.INSTANCE, IntakeSlides.INSTANCE,

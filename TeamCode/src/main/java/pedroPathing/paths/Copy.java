@@ -30,7 +30,7 @@ import util.RobotConstants;
 import util.RobotHardware;
 
 @Config
-@Autonomous(name = "third Write", group = "Examples")
+@Autonomous(name = "5 Spec")
 public class Copy extends OpMode {
 
     int target = RobotConstants.Outtake.slideGround;
@@ -42,7 +42,7 @@ public class Copy extends OpMode {
     private final RobotHardware robot = RobotHardware.getInstance();
     private PoseUpdater poseUpdater;
     private DashboardPoseTracker dashboardPoseTracker;
-    ScheduledExecutorService s = Executors.newScheduledThreadPool(1);
+    //ScheduledExecutorService s = Executors.newScheduledThreadPool(1);
     private boolean tempAutoSpec = true;
     /** This is the variable where we store the state of our auto.
      * It is used by the pathUpdate method. */
@@ -64,7 +64,7 @@ public class Copy extends OpMode {
     private final Pose startPose = new Pose(7.375,64.5,Math.toRadians(0));
     ///
     ///
-    private final Pose preloadPose = new Pose(22 + initX, 0 + initY, Math.toRadians(0));
+    private final Pose preloadPose = new Pose(23 + initX, 0 + initY, Math.toRadians(0));
     private final Pose controlToPushOne1Pose = new Pose(13, 25, Math.toRadians(0)); //150
     private final Pose controltoPushOne2Pose = new Pose(105,28,Math.toRadians(0));
     private final Pose pushedSpecOnePose = new Pose(11 + initX, -42 + initY, Math.toRadians(0));
@@ -80,7 +80,7 @@ public class Copy extends OpMode {
 // dont change above
 //    private final Pose goToSpec = new Pose(1 + initX, 34, Math.toRadians(0));
 //    private final Pose goToSpecControl = new Pose(32.5, 22.5, Math.toRadians(0));
-    private final Pose pickUpSpec1 = new Pose(6.25 + initX, 7, Math.toRadians(0));
+    private final Pose pickUpSpec1 = new Pose(6 + initX, 7, Math.toRadians(0));
     private final Pose controlToScoreSpec1 = new Pose(13, 67.5, Math.toRadians(0));
     private final Pose scoreSpec1 = new Pose(20.75 + initX, 2 + initY, Math.toRadians(0));
 // dont change above
@@ -198,6 +198,7 @@ public class Copy extends OpMode {
     public void autonomousPathUpdate() { // think about using index to make repetitive actions during auto
         switch (pathState) {
             case 0:
+
                 target = RobotConstants.Outtake.slideSpec;
                 robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchSpecScore);
                 robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageScore);
@@ -262,29 +263,29 @@ public class Copy extends OpMode {
              //   if(pathTimer.getElapsedTimeSeconds() > 1) {}
 
                 if(!follower.isBusy()) { //score 1
-//                    if (tempAutoSpec) {
-//                        actionTimer.resetTimer();
-//                        tempAutoSpec = false;
-//                    }
+                    if (tempAutoSpec) {
+                        actionTimer.resetTimer();
+                        tempAutoSpec = false;
+                    }
                     robot.outtake.setClawState(Outtake.ClawState.CLOSED);
-                    s.schedule(() -> {
-                        robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchSpecScore);
-                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecScore);
-                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecScore);
-                        follower.followPath(scoreSpecimen1,true);
-                        target = RobotConstants.Outtake.slideSpec;
-                        tempAutoSpec = true;
-                        setPathState(6);
-                    }, 200 , TimeUnit.MILLISECONDS);
-//                    if(actionTimer.getElapsedTimeSeconds() > .2){
+//                    s.schedule(() -> {
 //                        robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchSpecScore);
 //                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecScore);
 //                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecScore);
 //                        follower.followPath(scoreSpecimen1,true);
-//                       target = RobotConstants.Outtake.slideSpec;
+//                        target = RobotConstants.Outtake.slideSpec;
 //                        tempAutoSpec = true;
 //                        setPathState(6);
-//                    }
+//                    }, 200 , TimeUnit.MILLISECONDS);
+                    if(actionTimer.getElapsedTimeSeconds() > .2){
+                        robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchSpecScore);
+                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecScore);
+                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecScore);
+                        follower.followPath(scoreSpecimen1,true);
+                       target = RobotConstants.Outtake.slideSpec;
+                        tempAutoSpec = true;
+                        setPathState(6);
+                    }
 
                 }
                 break;
@@ -432,8 +433,10 @@ public class Copy extends OpMode {
 
 
         // These loop the movements of the robot
-        follower.update();
         autonomousPathUpdate();
+        follower.update();
+//        follower.update();
+//        autonomousPathUpdate();
 
         // Feedback to Driver Hub
         telemetry.addData("path state", pathState);

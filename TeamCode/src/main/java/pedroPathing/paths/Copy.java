@@ -17,6 +17,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import commands.states.SpecStates;
 import pedroPathing.constants.FConstants;
@@ -39,6 +42,7 @@ public class Copy extends OpMode {
     private final RobotHardware robot = RobotHardware.getInstance();
     private PoseUpdater poseUpdater;
     private DashboardPoseTracker dashboardPoseTracker;
+    ScheduledExecutorService s = Executors.newScheduledThreadPool(1);
     private boolean tempAutoSpec = true;
     /** This is the variable where we store the state of our auto.
      * It is used by the pathUpdate method. */
@@ -71,48 +75,37 @@ public class Copy extends OpMode {
     private final Pose endPush2Pose = new Pose(13 + initX, initY -52.5, Math.toRadians(0));
 
     private final Pose controlToPushThree1Pose = new Pose(56, 22, Math.toRadians(0));
-    private final Pose controlToPushThree2Pose = new Pose(70, 7, Math.toRadians(0));
-    private final Pose endPush3Pose = new Pose(17, 7, Math.toRadians(0));
+    private final Pose controlToPushThree2Pose = new Pose(74, 7.2, Math.toRadians(0));
+    private final Pose endPush3Pose = new Pose(19, 7.2, Math.toRadians(0));
+// dont change above
+//    private final Pose goToSpec = new Pose(1 + initX, 34, Math.toRadians(0));
+//    private final Pose goToSpecControl = new Pose(32.5, 22.5, Math.toRadians(0));
+    private final Pose pickUpSpec1 = new Pose(6.25 + initX, 7, Math.toRadians(0));
+    private final Pose controlToScoreSpec1 = new Pose(13, 67.5, Math.toRadians(0));
+    private final Pose scoreSpec1 = new Pose(20.75 + initX, 2 + initY, Math.toRadians(0));
+// dont change above
+    private final Pose pickUpSpec2 = new Pose(6.75 + initX, 34, Math.toRadians(0));
+    private final Pose controlToScoreSpec2 = new Pose(13, 67.5, Math.toRadians(0));
+    private final Pose scoreSpec2 = new Pose(20.75 + initX, 2 + initY, Math.toRadians(0));
+// dont change above
+    private final Pose pickUpSpec3 = new Pose(7.75 + initX, 34, Math.toRadians(0));
+    private final Pose controlToScoreSpec3 = new Pose(13, 67.5, Math.toRadians(0));
+    private final Pose scoreSpec3 = new Pose(20.875 + initX, 2 + initY, Math.toRadians(0));
 
-    private final Pose goToSpec = new Pose(1 + initX, 34, Math.toRadians(0));
-    private final Pose goToSpecControl = new Pose(32.5, 22.5, Math.toRadians(0));
-    private final Pose pickUpFirstSpec = new Pose(8.25 + initX, 34, Math.toRadians(0));
-    private final Pose pickUpSpec = new Pose(4.5 + initX, 34, Math.toRadians(0));
+    private final Pose pickUpSpec4 = new Pose(7.5 + initX, 34, Math.toRadians(0));
+    private final Pose controlToScoreSpec4 = new Pose(13, 67.5, Math.toRadians(0));
+    private final Pose scoreSpec4 = new Pose(21.75 + initX, 2 + initY, Math.toRadians(0));
+//    private final Pose pickUpSpec = new Pose(4.5 + initX, 34, Math.toRadians(0));
 
-    private final Pose controlToScoreSpec = new Pose(13, 67.5, Math.toRadians(0));
-    private final Pose scoreSpec1 = new Pose(19.75 + initX, 1.5 + initY, Math.toRadians(0));
+//    private final Pose controlToScoreSpec = new Pose(13, 67.5, Math.toRadians(0));
 
-    private final Pose prepareForPushingOnePose = new Pose(45 + initX,  initY -37.7, Math.toRadians(0)); //30
-    private final Pose goingToPushSpecTwoPose = new Pose(50 + initX, -52 + initY, Math.toRadians(315));
-    private final Pose pushedSpecTwoPose = new Pose(52 + initX, -52 + initY, Math.toRadians(0));
-    private final Pose pushSpecPose2 = new Pose(12.5 + initX, -52 + initY, Math.toRadians(0));
-
-    private final Pose prepareForPushingTwoPose = new Pose(46 + initX, -46 + initY, Math.toRadians(0)); //30
-    private final Pose goingToPushSpecThreePose = new Pose(52 + initX, -57.5 + initY, Math.toRadians(0)); //315
-    private final Pose pushSpec3Pose2 = new Pose(12.5 + initX, -55 + initY, Math.toRadians(0));  //315
-    // private final Pose pushedSpecThreePose = new Pose(4.8 + initX, 11.25 + initY, Math.toRadians(315));
-
-    private final Pose aboutToGrabOnePose = new Pose(5,-30,Math.toRadians(0));
-    private final Pose grabOnePose = new Pose(0,-30,Math.toRadians(0));
-
-
-    private final Pose scoreOnePosePose = new Pose(7.375,111.75,Math.toRadians(0));
-    private final Pose aboutToGrabTwoPose = new Pose(7.375,111.75,Math.toRadians(0));
-    private final Pose grabTwoPose = new Pose(7.375,111.75,Math.toRadians(0));
-    private final Pose scoreTwoPosePose = new Pose(7.375,111.75,Math.toRadians(0));
-    private final Pose aboutToGrabThreePose = new Pose(7.375,111.75,Math.toRadians(0));
-    private final Pose grabThreePose = new Pose(7.375,111.75,Math.toRadians(0));
-    private final Pose scoreThreePosePose = new Pose(7.375,111.75,Math.toRadians(0));
-    private final Pose aboutToGrabFourPose = new Pose(7.375,111.75,Math.toRadians(0));
-    private final Pose grabFourPose = new Pose(7.375,111.75,Math.toRadians(0));
-    private final Pose scoreFourPosePose = new Pose(7.375,111.75,Math.toRadians(0));
 
 
 
 
     /** These are our Paths and PathChains that we will define in buildPaths() */
     private Path scorePreload, park;
-    private PathChain push1, push2, push3, pickUp1, scoreSpecimen1, scoreSpecimen2,scoreSpecimen3, scoreSpecimen4, pickUp3,finalScore,grabPickup1, grabPickup2, grabPickup3, scorePickup1, scorePickup2, scorePickup3;
+    private PathChain pickUp2, pickUp4,push1, push2, push3, pickUp1, scoreSpecimen1, scoreSpecimen2,scoreSpecimen3, scoreSpecimen4, pickUp3,finalScore,grabPickup1, grabPickup2, grabPickup3, scorePickup1, scorePickup2, scorePickup3;
 
     /** Build the paths for the auto (adds, for example, constant/linear headings while doing paths)
      * It is necessary to do this so that all the paths are built before the auto starts. **/
@@ -159,29 +152,37 @@ public class Copy extends OpMode {
                 .build();
 
         pickUp1 = follower.pathBuilder()
-                .addPath(new BezierCurve(new Point(endPush3Pose), new Point(goToSpecControl),new Point(pickUpFirstSpec)))
+                .addPath(new BezierCurve(new Point(endPush3Pose), new Point(pickUpSpec1)))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
+                .build();
+        pickUp2 = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(scoreSpec1), new Point(pickUpSpec2)))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
+                .build();
+        pickUp3 = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(scoreSpec2), new Point(pickUpSpec3)))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
+                .build();
+
+        pickUp4 = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(scoreSpec3), new Point(pickUpSpec4)))
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
 
         scoreSpecimen1 = follower.pathBuilder()
-                .addPath(new BezierCurve(new Point(pickUpSpec), new Point(controlToScoreSpec),new Point(scoreSpec1)))
+                .addPath(new BezierCurve(new Point(pickUpSpec1), new Point(controlToScoreSpec1),new Point(scoreSpec1)))
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
         scoreSpecimen2 = follower.pathBuilder()
-                .addPath(new BezierCurve(new Point(pickUpSpec), new Point(controlToScoreSpec),new Point(scoreSpec1)))
+                .addPath(new BezierCurve(new Point(pickUpSpec2), new Point(controlToScoreSpec2),new Point(scoreSpec2)))
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
         scoreSpecimen3 = follower.pathBuilder()
-                .addPath(new BezierCurve(new Point(pickUpSpec), new Point(controlToScoreSpec),new Point(scoreSpec1)))
+                .addPath(new BezierCurve(new Point(pickUpSpec3), new Point(controlToScoreSpec3),new Point(scoreSpec3)))
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
         scoreSpecimen4 = follower.pathBuilder()
-                .addPath(new BezierCurve(new Point(pickUpSpec), new Point(controlToScoreSpec),new Point(scoreSpec1)))
-                .setConstantHeadingInterpolation(Math.toRadians(0))
-                .build();
-
-        pickUp3 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(scoreSpec1), new Point(pickUpSpec)))
+                .addPath(new BezierCurve(new Point(pickUpSpec4), new Point(controlToScoreSpec4),new Point(scoreSpec4)))
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
 
@@ -252,7 +253,6 @@ public class Copy extends OpMode {
                     follower.followPath(pickUp1,false);
                     robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff2);
                     robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff2);
-
                     setPathState(5);
 
 
@@ -262,20 +262,29 @@ public class Copy extends OpMode {
              //   if(pathTimer.getElapsedTimeSeconds() > 1) {}
 
                 if(!follower.isBusy()) { //score 1
-                    if (tempAutoSpec) {
-                        actionTimer.resetTimer();
-                        tempAutoSpec = false;
-                    }
+//                    if (tempAutoSpec) {
+//                        actionTimer.resetTimer();
+//                        tempAutoSpec = false;
+//                    }
                     robot.outtake.setClawState(Outtake.ClawState.CLOSED);
-                    if(actionTimer.getElapsedTimeSeconds() > .2){
+                    s.schedule(() -> {
                         robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchSpecScore);
                         robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecScore);
                         robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecScore);
                         follower.followPath(scoreSpecimen1,true);
-                       target = RobotConstants.Outtake.slideSpec;
+                        target = RobotConstants.Outtake.slideSpec;
                         tempAutoSpec = true;
                         setPathState(6);
-                    }
+                    }, 200 , TimeUnit.MILLISECONDS);
+//                    if(actionTimer.getElapsedTimeSeconds() > .2){
+//                        robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchSpecScore);
+//                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecScore);
+//                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecScore);
+//                        follower.followPath(scoreSpecimen1,true);
+//                       target = RobotConstants.Outtake.slideSpec;
+//                        tempAutoSpec = true;
+//                        setPathState(6);
+//                    }
 
                 }
                 break;
@@ -287,7 +296,7 @@ public class Copy extends OpMode {
                     robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchDropOff);
                     robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff2);
                     robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff2);
-                    follower.followPath(pickUp3,false);
+                    follower.followPath(pickUp2,false);
                     actionTimer.resetTimer();
 
                     setPathState(7);
@@ -351,7 +360,7 @@ public class Copy extends OpMode {
                     robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff2);
                     robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff2);
                //     robot.intake.setClawState(Intake.ClawState.OPEN);
-                    follower.followPath(pickUp3,false);
+                    follower.followPath(pickUp4,false);
                 //    robot.outtake.PIDLoop(RobotConstants.Outtake.slideGround);
                     setPathState(11);
                 }

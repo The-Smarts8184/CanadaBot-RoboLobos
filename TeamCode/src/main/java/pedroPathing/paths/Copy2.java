@@ -263,16 +263,16 @@ public class Copy2 extends OpMode {
                     }
                     s.schedule(() -> {
                         robot.intakeClaw.setPosition(RobotConstants.Outtake.clawClosed);
-                    }, 500 , TimeUnit.MILLISECONDS);
+                    }, 1000 , TimeUnit.MILLISECONDS);
                     s.schedule(() -> {
                         robot.intake.setPosition(RobotConstants.Intake.slideDrive);
                     }, 500 , TimeUnit.MILLISECONDS);
                     robot.turret.setPosition(RobotConstants.Intake.turretDropOff);
                     robot.intakePitch.setPosition(RobotConstants.Intake.pitchDropOff);
                     robot.clawRotation.setPosition(RobotConstants.Intake.clawRotation902);
-                    if (robot.intakeSlide.getCurrentPosition() <= 200){
-                        robot.outtakeClaw.setPosition(RobotConstants.Outtake.clawOpen);
-                    }
+                    s.schedule(() -> {
+                        robot.intakeClaw.setPosition(RobotConstants.Outtake.clawOpen);
+                    }, 500 , TimeUnit.MILLISECONDS);
 //                    // add delay
 //                    robot.intakeClaw.setPosition(RobotConstants.Outtake.clawClosed);
 //                    // add delay

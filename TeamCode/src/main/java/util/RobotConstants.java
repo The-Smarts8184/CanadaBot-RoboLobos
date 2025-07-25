@@ -18,8 +18,12 @@ public class RobotConstants {
         public static int slideDrive = 0;
         public static int slidePower = 1;
         public static int slideSub = 400;
+        public static int slideAutoPickup = 625;
+
 
         public static double turretDrive = 0.5;
+        public static double turretAutoLeft = 0.62; // change value
+        public static double turretAutoRight = 0.38; // change value
 
         public static double clawRotationDrive = 0.5;
         public static double clawRotationAutoPickUp = 0.5; //change when needed
@@ -27,6 +31,9 @@ public class RobotConstants {
         public static double clawRotation135 = 0.625;
         public static double clawRotation901 = 0.28;
         public static double clawRotation902 = 0.72;
+        public static double clawRotationAutoLeft = 0.62;
+        public static double clawRotationAutoRight = 0.38;
+
         public static double clawOpen = 0;
         public static double clawClosed = 0.9;
         public static double clawLoose = 0.8;
@@ -37,6 +44,8 @@ public class RobotConstants {
         public static double intakePitchSubIn = 0.82;
         public static double intakePitchIntake = 0.93;
         public static double intakePitchDrive = 0.22;
+        public static double intakePitchAutoDrive = 0.5;
+
 
 
 

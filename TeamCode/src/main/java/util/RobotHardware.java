@@ -107,6 +107,8 @@ public class RobotHardware {
         this.intakePitch.setPosition(RobotConstants.Intake.intakePitchDrive);
 
         this.turret = hardwareMap.servo.get(RobotConstants.Intake.turret);
+        this.turret.setPosition(RobotConstants.Intake.turretAutoLeft); // for testing
+        this.turret.setPosition(RobotConstants.Intake.turretAutoRight); // for testing
         this.turret.setPosition(RobotConstants.Intake.turretDrive);
 
         this.intakeSlide = hardwareMap.get(DcMotorEx.class, RobotConstants.Intake.intakeSlide);
@@ -203,6 +205,8 @@ public class RobotHardware {
         this.intakePitch.setPosition(RobotConstants.Intake.intakePitchDrive);
 
         this.turret = hardwareMap.servo.get(RobotConstants.Intake.turret);
+        this.turret.setPosition(RobotConstants.Intake.turretAutoLeft); // for testing
+        this.turret.setPosition(RobotConstants.Intake.turretAutoRight); // for testing
         this.turret.setPosition(RobotConstants.Intake.turretDrive);
 
         this.intakeSlide = hardwareMap.get(DcMotorEx.class, RobotConstants.Intake.intakeSlide);

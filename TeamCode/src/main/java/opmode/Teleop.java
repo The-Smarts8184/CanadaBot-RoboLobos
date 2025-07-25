@@ -55,6 +55,7 @@ public class Teleop extends CommandOpMode {
         robot.outtake.resetEncoder();
         telemetry.addData("slide pos: ",robot.outtakeRear.getCurrentPosition());
         telemetry.addData("slide pos: ",robot.outtakeFront.getCurrentPosition());
+        telemetry.addData("intake slide pos: ",robot.intakeSlide.getCurrentPosition());
         telemetry.addData("State: ",teleopState);
         telemetry.addData("Sample State: ",sampleState);
         telemetry.addData("Spec State: ",specState);
@@ -85,6 +86,7 @@ public class Teleop extends CommandOpMode {
 
         telemetry.addData("slide pos: ",robot.outtakeRear.getCurrentPosition());
         telemetry.addData("slide pos: ",robot.outtakeFront.getCurrentPosition());
+        telemetry.addData("intake slide pos: ",robot.intakeSlide.getCurrentPosition());
         telemetry.addData("target slide pos",target);
         telemetry.addData("State: ",teleopState);
         telemetry.addData("Sample State: ",sampleState);
@@ -101,7 +103,7 @@ public class Teleop extends CommandOpMode {
 
             switch (specState) {
                 case DRIVE:
-                    robot.intake.retractSlides();
+                    //robot.intake.retractSlides();
                     robot.intakePitch.setPosition(RobotConstants.Intake.intakePitchDrive);
                     robot.intake.setClawState(Intake.ClawState.CLOSED);
                     robot.clawRotation.setPosition(RobotConstants.Intake.clawRotationDrive);
@@ -122,7 +124,7 @@ public class Teleop extends CommandOpMode {
                     robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
                     robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchDropOff);
                     robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchDropOff);
-                    robot.turret.setPosition(RobotConstants.Intake.turretDrive);
+                    //robot.turret.setPosition(RobotConstants.Intake.turretDrive);
 
                     if (driver.gamepad.y) {
                         robot.intake.setClawState(Intake.ClawState.OPEN);
@@ -143,7 +145,13 @@ public class Teleop extends CommandOpMode {
                     }
                     if (driver.gamepad.right_bumper) {
                         robot.intake.setClawState(Intake.ClawState.OPEN);
+                        //robot.intakeSlide.setTargetPosition(RobotConstants.Intake.slideAutoPickup); // for ftc dash testing
                     }
+                    if (driver.gamepad.left_bumper){
+                        robot.turret.setPosition(RobotConstants.Intake.turretAutoLeft); // for ftc dash testing
+                    }
+
+
                     break;
                 case SCORE:
 
@@ -187,7 +195,7 @@ public class Teleop extends CommandOpMode {
                     if (driver.gamepad.b) {
                         setSpecState(SpecStates.DRIVE);
                     }
-                    robot.intake.setPosition(RobotConstants.Intake.slideSub);
+                    robot.intake.setPosition(RobotConstants.Intake.slideAutoPickup); //change back to slideSub
                     if (robot.intakePitch.getPosition() != RobotConstants.Intake.intakePitchIntake) {
                         robot.intakePitch.setPosition(RobotConstants.Intake.intakePitchSubIn);
                     }

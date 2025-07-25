@@ -16,6 +16,12 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import java.util.TimerTask;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 import subsystems.Intake;
@@ -241,6 +247,8 @@ public class Copy2 extends OpMode {
                 }
                 break;
             case 2:
+                ScheduledExecutorService s = Executors.newScheduledThreadPool(1);
+
                 if (!follower.isBusy()) {
                     if (tempAutoSpec2) {
                         actionTimer.resetTimer();
@@ -252,20 +260,19 @@ public class Copy2 extends OpMode {
                     robot.clawRotation.setPosition(RobotConstants.Intake.clawRotationAutoLeft);
                     if (robot.intakeSlide.getCurrentPosition() >= 570){
                         robot.intakePitch.setPosition(RobotConstants.Intake.intakePitchIntake);
-                        robot.intakeClaw.setPosition(RobotConstants.Outtake.clawClosed);
                     }
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                    robot.intake.setPosition(RobotConstants.Intake.slideDrive);
-//                    robot.turret.setPosition(RobotConstants.Intake.turretDropOff);
-//                    robot.intakePitch.setPosition(RobotConstants.Intake.pitchDropOff);
-//                    robot.clawRotation.setPosition(RobotConstants.Intake.clawRotation902);
-//                    if (robot.intakeSlide.getCurrentPosition() <= 200){
-//                        robot.outtakeClaw.setPosition(RobotConstants.Outtake.clawOpen);
-//                    }
+                    s.schedule(() -> {
+                        robot.intakeClaw.setPosition(RobotConstants.Outtake.clawClosed);
+                    }, 500 , TimeUnit.MILLISECONDS);
+                    s.schedule(() -> {
+                        robot.intake.setPosition(RobotConstants.Intake.slideDrive);
+                    }, 500 , TimeUnit.MILLISECONDS);
+                    robot.turret.setPosition(RobotConstants.Intake.turretDropOff);
+                    robot.intakePitch.setPosition(RobotConstants.Intake.pitchDropOff);
+                    robot.clawRotation.setPosition(RobotConstants.Intake.clawRotation902);
+                    if (robot.intakeSlide.getCurrentPosition() <= 200){
+                        robot.outtakeClaw.setPosition(RobotConstants.Outtake.clawOpen);
+                    }
 //                    // add delay
 //                    robot.intakeClaw.setPosition(RobotConstants.Outtake.clawClosed);
 //                    // add delay

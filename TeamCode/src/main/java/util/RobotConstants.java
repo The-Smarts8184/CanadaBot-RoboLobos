@@ -101,7 +101,7 @@ public class RobotConstants {
         public static int slideHighSample = 1500;
         public static int slideIncrement = 20;
         public static int slideClimb1 = 2400;
-        public static int slideClimb4 = 1400;
+        public static int slideClimb4 = 1700;
         public static int slideClimb2 = 1000;
         public static int slideClimb3 = 4500;
         public static int slideMax = 1600;
@@ -116,18 +116,18 @@ public class RobotConstants {
         public static double pitchDrive = 0;
         public static double pitchScore = 0.64;
         public static double LRPitchDrive = 0.6;
-        public static double LRPitchScore = 0.25;
-        public static double LRPitchTransfer = 0.675;
+        public static double LRPitchScore = 0.28;
+        public static double LRPitchTransfer = 0.685;
         public static double LRPitchClimb1 = 0.4;
         public static double LRPitchClimb2 = 0.55;
 
         // SPEC
         public static double pitchDropOff = 0.7;
-        public static double LRPitchDropOff = 0.03;
+        public static double LRPitchDropOff = 0.04;
         public static double pitchSpecScore = 0.62;
-        public static double LRPitchSpecScore =0.66;
+        public static double LRPitchSpecScore =0.67;
         public static double LRPitchSpecLongDropOff1 = 0.1;
-        public static double LRPitchSpecLongDropOff2 = 0.07;
+        public static double LRPitchSpecLongDropOff2 = 0.08;
         public static double LRPitchSpecLongDropOff3 = 0.15;
 
 

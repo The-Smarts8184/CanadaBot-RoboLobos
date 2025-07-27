@@ -86,7 +86,7 @@ public class Copy extends OpMode {
 // dont change above
     private final Pose pickUpSpec2 = new Pose(6.75 + initX, 34, Math.toRadians(0));
     private final Pose controlToScoreSpec2 = new Pose(13, 67.5, Math.toRadians(0));
-    private final Pose scoreSpec2 = new Pose(21.25 + initX, 2 + initY, Math.toRadians(0));
+    private final Pose scoreSpec2 = new Pose(21.35 + initX, 2 + initY, Math.toRadians(0));
 // dont change above
     private final Pose pickUpSpec3 = new Pose(7.75 + initX, 34, Math.toRadians(0));
     private final Pose controlToScoreSpec3 = new Pose(13, 67.5, Math.toRadians(0));

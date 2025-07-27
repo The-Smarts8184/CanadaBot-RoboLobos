@@ -30,6 +30,7 @@ public class Teleop extends CommandOpMode {
 
     private boolean tempSpec = true;
     private boolean tempSpecScore = true;
+    private boolean tempClimb = true;
 
 
 
@@ -93,6 +94,12 @@ public class Teleop extends CommandOpMode {
         telemetry.addData("Spec State: ",specState);
         telemetry.update();
 
+        if (specState == SpecStates.CLIMB || sampleState == SampleStates.CLIMB) {
+            robot.outtake.setClimbMode(true);
+        } else {
+            robot.outtake.setClimbMode(false);
+        }
+
 
         switch (teleopState) {
             case SPEC:
@@ -154,10 +161,14 @@ public class Teleop extends CommandOpMode {
 
                     break;
                 case SCORE:
+                    TimerTask grabSpecLinkageDelay = new TimerTask() {
+                        public void run() {
+                            robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageScore);
+                        }
+                    };
 
                     TimerTask grabSpecDelay = new TimerTask() {
                         public void run() {
-                            robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageScore);
                             robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecScore);
                             robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecScore);
                             robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchSpecScore);
@@ -165,7 +176,9 @@ public class Teleop extends CommandOpMode {
                     };
 
                     if (tempSpecScore) {
-                        timer2.schedule(grabSpecDelay,400);
+                        timer1.schedule(grabSpecDelay,400);
+                        timer2.schedule(grabSpecLinkageDelay,700);
+
                         tempSpecScore = false;
                     }
 
@@ -288,8 +301,10 @@ public class Teleop extends CommandOpMode {
                     }
                     break;
                 case CLIMB:
+                    if (tempClimb) {
+                        robot.intake.retractSlides();
 
-                    robot.intake.retractSlides();
+                    }
                     TimerTask slideWait = new TimerTask() {
                         public void run() {
                            target = -1000;
@@ -351,7 +366,7 @@ public class Teleop extends CommandOpMode {
                         target = RobotConstants.Outtake.slideClimb4;
                         robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
                         robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
-                        timer1.schedule(slideClimb2Wait,1500);
+                        timer1.schedule(slideClimb2Wait,1000);
                     }
                     if (driver.gamepad.left_bumper) {
                         target = RobotConstants.Outtake.slideClimb3;
@@ -453,11 +468,14 @@ public class Teleop extends CommandOpMode {
                         }
                     };
 
-
+                    TimerTask scoreLinkageDelay = new TimerTask() {
+                        public void run() {
+                            robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageScore);
+                        }
+                    };
                     TimerTask score = new TimerTask() {
                         public void run() {
                             target = RobotConstants.Outtake.slideSample;
-                            robot.outtakeLinkage.setPosition(RobotConstants.Outtake.linkageScore);
                             robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchScore);
                             robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchScore);
                             robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchScore);
@@ -470,6 +488,7 @@ public class Teleop extends CommandOpMode {
                         timer1.schedule(Transfer1, 150);
                         timer2.schedule(Transfer2,250);
                         timer1.schedule(score, 500);
+                        timer2.schedule(scoreLinkageDelay, 800);
                     }
                     if (driver.gamepad.left_bumper) {
                         target = RobotConstants.Outtake.slideLowSample;

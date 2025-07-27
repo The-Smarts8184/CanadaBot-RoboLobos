@@ -4,6 +4,7 @@ package subsystems;
 
 
 
+import static util.RobotHardware.climbPID;
 import static util.RobotHardware.controller;
 
 import com.arcrobotics.ftclib.command.Subsystem;
@@ -19,6 +20,8 @@ public class Outtake implements Subsystem {
     private ClawState clawState;
     double p =0.03, i = 0.00005, d = 0.00001;
 
+    private boolean climbMode;
+
     public enum ClawState {
         CLOSED, OPEN
     }
@@ -27,6 +30,8 @@ public class Outtake implements Subsystem {
     public Outtake() {
 
         this.robot = RobotHardware.getInstance();
+
+        climbMode = false;
 
     }
 
@@ -55,7 +60,15 @@ public class Outtake implements Subsystem {
 
         int avgPos = (backPos + frontPos) / 2;
 
-        double power = controller.calculate(avgPos, target);
+        double power;
+
+        if (climbMode) {
+            power = climbPID.calculate(avgPos, target);
+        } else {
+            power = controller.calculate(avgPos, target);
+        }
+
+//        double power = controller.calculate(avgPos, target);
 
         robot.outtakeRear.setPower(power);
         robot.outtakeFront.setPower(power);
@@ -126,7 +139,9 @@ public class Outtake implements Subsystem {
     }
 
 
-
+    public void setClimbMode(boolean climbMode) {
+        this.climbMode = climbMode;
+    }
 
 
     public void setClawState(ClawState state) {

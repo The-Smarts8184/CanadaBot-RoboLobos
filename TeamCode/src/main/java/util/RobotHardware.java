@@ -59,6 +59,9 @@ public class RobotHardware {
     public static double p =0.03, i = 0.00005, d = 0.00001;
     public static double f = 0;
 
+    public static PIDController climbPID;
+    public static double climbP = 0.01, climbI = 0.00, climbD = 0.00, climbF = 0.00;
+
     public static int target = 0;
 
     public final double ticks_in_degree = 384.5/360;
@@ -174,6 +177,9 @@ public class RobotHardware {
         this.gearShift.setPosition(RobotConstants.Outtake.gearShiftDrive);
 
         controller = new PIDController(p, i,d);
+
+        climbPID = new PIDController(climbP, climbI, climbD);
+
 
         //backMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 

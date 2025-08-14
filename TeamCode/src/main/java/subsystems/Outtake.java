@@ -62,6 +62,7 @@ public class Outtake implements Subsystem {
 
         double power;
 
+
         if (climbMode) {
             power = climbPID.calculate(avgPos, target);
         } else {

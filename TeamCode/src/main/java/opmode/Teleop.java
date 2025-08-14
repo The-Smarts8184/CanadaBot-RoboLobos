@@ -33,6 +33,7 @@ public class Teleop extends CommandOpMode {
 
 
 
+
     public void setSampleState(SampleStates state) {
         sampleState = state;
     }

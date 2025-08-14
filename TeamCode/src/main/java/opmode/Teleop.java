@@ -30,7 +30,6 @@ public class Teleop extends CommandOpMode {
 
     private boolean tempSpec = true;
     private boolean tempSpecScore = true;
-    private boolean tempClimb = true;
 
 
 
@@ -301,10 +300,9 @@ public class Teleop extends CommandOpMode {
                     }
                     break;
                 case CLIMB:
-                    if (tempClimb) {
-                        robot.intake.retractSlides();
 
-                    }
+                    robot.intake.retractSlides();
+
                     TimerTask slideWait = new TimerTask() {
                         public void run() {
                            target = -1000;
@@ -320,24 +318,13 @@ public class Teleop extends CommandOpMode {
                             target = 0;
                         }
                     };
-                    TimerTask armResetWait = new TimerTask() {
-                        public void run() {
-
-                        }
-                    };
-                    TimerTask armClimbWait = new TimerTask() {
-                        public void run() {
-                            robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff2);
-                            robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff2);
-                        }
-                    };
                     TimerTask slideClimb2Wait = new TimerTask() {
                         public void run() {
                             target = RobotConstants.Outtake.slideClimb2;
                         }
                     };
                     if (driver.gamepad.b) {
-                        setSampleState(SampleStates.DRIVE);
+                        setSpecState(SpecStates.DRIVE);
                     }
                     if (driver.gamepad.dpad_up) {
                         robot.climb.shiftGears(Climb.GearState.GearClimb);
@@ -366,7 +353,7 @@ public class Teleop extends CommandOpMode {
                         target = RobotConstants.Outtake.slideClimb4;
                         robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
                         robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
-                        timer1.schedule(slideClimb2Wait,1000);
+                        timer1.schedule(slideClimb2Wait,500);
                     }
                     if (driver.gamepad.left_bumper) {
                         target = RobotConstants.Outtake.slideClimb3;
@@ -506,6 +493,7 @@ public class Teleop extends CommandOpMode {
                 case CLIMB:
 
                     robot.intake.retractSlides();
+
                     TimerTask slideWait = new TimerTask() {
                         public void run() {
                             target = -1000;
@@ -521,10 +509,9 @@ public class Teleop extends CommandOpMode {
                             target = 0;
                         }
                     };
-                    TimerTask armResetWait = new TimerTask() {
+                    TimerTask slideClimb2Wait = new TimerTask() {
                         public void run() {
-                            robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
-                            robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
+                            target = RobotConstants.Outtake.slideClimb2;
                         }
                     };
                     if (driver.gamepad.b) {
@@ -554,10 +541,10 @@ public class Teleop extends CommandOpMode {
                         target = RobotConstants.Outtake.slideClimb1;
                     }
                     if (driver.gamepad.right_stick_button) {
-                        target = RobotConstants.Outtake.slideClimb2;
-                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff1);
-                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff1);
-                        timer1.schedule(armResetWait,750);
+                        target = RobotConstants.Outtake.slideClimb4;
+                        robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
+                        robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchClimb1);
+                        timer1.schedule(slideClimb2Wait,500);
                     }
                     if (driver.gamepad.left_bumper) {
                         target = RobotConstants.Outtake.slideClimb3;

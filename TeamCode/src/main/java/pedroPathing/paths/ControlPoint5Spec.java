@@ -30,8 +30,8 @@ import util.RobotConstants;
 import util.RobotHardware;
 
 @Config
-@Autonomous(name = "5 Spec")
-public class Copy extends OpMode {
+@Autonomous(name = "MEOWWWWWWWWW")
+public class ControlPoint5Spec extends OpMode {
 
     int target = RobotConstants.Outtake.slideGround;
 
@@ -77,17 +77,19 @@ public class Copy extends OpMode {
     private final Pose controlToPushThree1Pose = new Pose(56, 22, Math.toRadians(0));
     private final Pose controlToPushThree2Pose = new Pose(74, 7.2, Math.toRadians(0));
     private final Pose endPush3Pose = new Pose(19, 7.2, Math.toRadians(0));
-// dont change above
+    // dont change above
 //    private final Pose goToSpec = new Pose(1 + initX, 34, Math.toRadians(0));
 //    private final Pose goToSpecControl = new Pose(32.5, 22.5, Math.toRadians(0));
     private final Pose pickUpSpec1 = new Pose(5.875 + initX, 7, Math.toRadians(0));
+    private final Pose pickUpSpec2ControlPoint1 = new Pose(24.5, 29.5, Math.toRadians(0));
+    private final Pose pickupSpec2ControlPoint2 = new Pose(30, 35, Math.toRadians(0));
     private final Pose controlToScoreSpec1 = new Pose(13, 67.5, Math.toRadians(0));
     private final Pose scoreSpec1 = new Pose(20.75 + initX, 2 + initY, Math.toRadians(0));
-// dont change above
+    // dont change above
     private final Pose pickUpSpec2 = new Pose(6.75 + initX, 34, Math.toRadians(0));
     private final Pose controlToScoreSpec2 = new Pose(13, 67.5, Math.toRadians(0));
     private final Pose scoreSpec2 = new Pose(21.35 + initX, 2 + initY, Math.toRadians(0));
-// dont change above
+    // dont change above
     private final Pose pickUpSpec3 = new Pose(7.75 + initX, 34, Math.toRadians(0));
     private final Pose controlToScoreSpec3 = new Pose(13, 67.5, Math.toRadians(0));
     private final Pose scoreSpec3 = new Pose(21.35 + initX, 2 + initY, Math.toRadians(0));
@@ -156,7 +158,7 @@ public class Copy extends OpMode {
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
         pickUp2 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(scoreSpec1), new Point(pickUpSpec2)))
+                .addPath(new BezierCurve(new Point(scoreSpec1), new Point(pickUpSpec2ControlPoint1),new Point(pickupSpec2ControlPoint2),new Point(pickUpSpec2ControlPoint1)))
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
         pickUp3 = follower.pathBuilder()
@@ -260,7 +262,7 @@ public class Copy extends OpMode {
                 }
                 break;
             case 5:
-             //   if(pathTimer.getElapsedTimeSeconds() > 1) {}
+                //   if(pathTimer.getElapsedTimeSeconds() > 1) {}
 
                 if(!follower.isBusy()) { //score 1
                     if (tempAutoSpec) {
@@ -282,7 +284,7 @@ public class Copy extends OpMode {
                         robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecScore);
                         robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecScore);
                         follower.followPath(scoreSpecimen1,true);
-                       target = RobotConstants.Outtake.slideSpec;
+                        target = RobotConstants.Outtake.slideSpec;
                         tempAutoSpec = true;
                         setPathState(6);
                     }
@@ -329,9 +331,9 @@ public class Copy extends OpMode {
                     robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchDropOff);
                     robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff2);
                     robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff2);
-                //    robot.intake.setClawState(Intake.ClawState.OPEN);
+                    //    robot.intake.setClawState(Intake.ClawState.OPEN);
                     follower.followPath(pickUp3,false);
-               //     robot.outtake.PIDLoop(RobotConstants.Outtake.slideGround);
+                    //     robot.outtake.PIDLoop(RobotConstants.Outtake.slideGround);
                     setPathState(9);
                 }
                 break;
@@ -360,9 +362,9 @@ public class Copy extends OpMode {
                     robot.outtakePitch.setPosition(RobotConstants.Outtake.pitchDropOff);
                     robot.outtakeLPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff2);
                     robot.outtakeRPitch.setPosition(RobotConstants.Outtake.LRPitchSpecLongDropOff2);
-               //     robot.intake.setClawState(Intake.ClawState.OPEN);
+                    //     robot.intake.setClawState(Intake.ClawState.OPEN);
                     follower.followPath(pickUp4,false);
-                //    robot.outtake.PIDLoop(RobotConstants.Outtake.slideGround);
+                    //    robot.outtake.PIDLoop(RobotConstants.Outtake.slideGround);
                     setPathState(11);
                 }
                 break;

@@ -117,7 +117,7 @@ public class RobotConstants {
         public static double pitchScore = 0.64;
         public static double LRPitchDrive = 0.6;
         public static double LRPitchScore = 0.28;
-        public static double LRPitchTransfer = 0.685;
+        public static double LRPitchTransfer = 0.695;
         public static double LRPitchClimb1 = 0.4;
         public static double LRPitchClimb2 = 0.55;
 
